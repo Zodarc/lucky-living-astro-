@@ -28,7 +28,15 @@ const seoProps = Astro.props;
   {SITE.seo.googleSiteVerification && (
     <meta name="google-site-verification" content={SITE.seo.googleSiteVerification} />
   )}
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-K6BWT6QPJD"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
+  gtag('config', 'G-K6BWT6QPJD');
+</script>
   <!--
     No-JS safety net:
     If JavaScript is disabled, reveal all animated elements.
