@@ -13,21 +13,21 @@ keywords:
   - "smart bulbs no hub"
   - "wifi smart bulbs 2026"
 affiliateLinks:
-  - url: "https://www.amazon.com/s?k=LIFX+Color+A19&tag=luckyliving-20"
+  - url: "https://amzn.to/4gazyjq"
     label: "Check price on Amazon"
-  - url: "https://www.amazon.com/s?k=WiZ+Connected+A19&tag=luckyliving-20"
+  - url: "https://amzn.to/3UrKHoA"
     label: "Check price on Amazon"
-  - url: "https://www.amazon.com/s?k=Govee+smart+bulb+2+pack&tag=luckyliving-20"
+  - url: "https://amzn.to/4wtw5T7"
     label: "Check price on Amazon"
-  - url: "https://www.amazon.com/s?k=Sengled+Matter+smart+bulb&tag=luckyliving-20"
+  - url: "https://amzn.to/4htYHbc"
     label: "Check price on Amazon"
-  - url: "https://www.amazon.com/s?k=TP-Link+Kasa+KL110&tag=luckyliving-20"
+  - url: "https://amzn.to/4qcvALK"
     label: "Check price on Amazon"
 tags:
   - "smart lighting"
   - "renters"
   - "buying guide"
-draft: true
+draft: false
 ---
 
 If you're renting, the smart home aisle can feel like it wasn't built for you. Half the products assume you can drill into walls, install a permanent hub, or swap out your wiring — none of which your lease is going to allow. The good news: smart lighting is the one category that was basically designed for exactly your situation. Screw in a bulb, connect it to your WiFi, and you're done. No hub, no landlord conversation, no trace left behind when you move out.
