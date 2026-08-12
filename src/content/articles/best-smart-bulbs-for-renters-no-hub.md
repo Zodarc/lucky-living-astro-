@@ -4,7 +4,7 @@ description: "The best WiFi-direct smart bulbs that set up in minutes, need zero
 category: "smart-home"
 author: "spoky-curates"
 publishDate: 2026-08-12
-featuredImage: "/images/uploads/smart-bulbs-renters-hero.png"
+featuredImage: "/images/articles/smart-bulbs-renters-hero.png"
 featuredImageAlt: "A modern living room lit by a warm-toned smart bulb in a floor lamp"
 seoTitle: "Best Smart Bulbs for Renters in 2026 (No Hub Required)"
 seoDescription: "Compare the best WiFi-direct smart bulbs for renters in 2026 — no hub, no wiring, no landlord approval needed. Setup, pricing, and picks for every budget."
