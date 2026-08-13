@@ -60,7 +60,7 @@ export const SITE = {
 
   // Affiliate
   affiliate: {
-    amazonTag:       'luckyliving-20',   // Your Amazon Associates tag e.g. 'spokycurates-20'
+    amazonTag:       'luckyliving07-20',   // Your Amazon Associates tag e.g. 'spokycurates-20'
     disclosureShort: 'We may earn a commission from links on this page.',
     disclosureUrl:   '/affiliate-disclosure/',
   },
