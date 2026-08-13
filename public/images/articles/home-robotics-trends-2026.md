@@ -14,13 +14,13 @@ keywords:
   - "best robot vacuum 2026"
 affiliateLinks:
   - url: "https://www.amazon.com/s?k=Roborock+robot+vacuum+mop&tag=luckyliving-20"
-    label: "Check price on Amazon"
+    label: "Roborock Robot Vacuum Mop price on Amazon"
   - url: "https://www.amazon.com/s?k=Ecovacs+Deebot&tag=luckyliving-20"
-    label: "Check price on Amazon"
+    label: "Ecovacs Deebot price on Amazon"
   - url: "https://www.amazon.com/s?k=Husqvarna+Automower&tag=luckyliving-20"
-    label: "Check price on Amazon"
-  - url: "https://www.amazon.com/s?k=Dreame+robot+vacuum&tag=luckyliving-20"
-    label: "Check price on Amazon"
+    label: "Husqvarna Auto mower price on Amazon"
+  - url: "https://www.amazon.com/s?k=Dreame+robot+vacuum&tag=luckyliving07-20"
+    label: "Dreame Robot Vacuum price on Amazon"
 tags:
   - "home robotics"
   - "trends"
