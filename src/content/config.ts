@@ -95,7 +95,7 @@ const productsCollection = defineCollection({
       .optional()
       .default('Check Price on Amazon'),
 
-    pricePlaceholder: z.string()
+    priceDisplay: z.string()
       .optional(),
 
 

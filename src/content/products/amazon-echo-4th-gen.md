@@ -6,7 +6,7 @@ imageAlt: "Amazon Echo 4th Generation smart speaker in charcoal"
 category: "smart-home"
 affiliateUrl: "https://amzn.to/4fqVXZe"
 affiliateLabel: "Check Price on Amazon"
-pricePlaceholder: "$114.98"
+priceDisplay: "$114.98"
 rating: 4.7
 pros:
   - "Rich, room-filling sound"

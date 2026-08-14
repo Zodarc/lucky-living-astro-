@@ -13,7 +13,7 @@ imageAlt: "Philips Hue Smart Light Starter Kit"
 category: "smart-home"
 affiliateUrl: "https://amzn.to/4w7KHaN"
 affiliateLabel: "Check Price on Amazon"
-pricePlaceholder: "$133.86"
+priceDisplay: "$133.86"
 rating: 4.5
 pros:
   - Easy setup with the included Hue Bridge

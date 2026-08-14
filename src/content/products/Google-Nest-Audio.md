@@ -14,7 +14,7 @@ imageAlt: "Google Nest Audio (3-Pack) Smart Speakers"
 category: "smart-home"
 affiliateUrl: "https://amzn.to/3RLbR91"
 affiliateLabel: "Check Price on Amazon"
-pricePlaceholder: "$349.99"
+priceDisplay: "$349.99"
 rating: 4.4
 pros:
   - "Excellent sound quality"
