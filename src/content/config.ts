@@ -98,6 +98,8 @@ const productsCollection = defineCollection({
     priceDisplay: z.string()
       .optional(),
 
+    priceLastVerified: z.coerce.date(),
+
 
     // Review scoring
     rating: z.number()

@@ -14,6 +14,7 @@ category: "smart-home"
 affiliateUrl: "https://amzn.to/4w7KHaN"
 affiliateLabel: "Check Price on Amazon"
 priceDisplay: "$133.86"
+priceLastVerified: 2026-08-05
 rating: 4.5
 pros:
   - Easy setup with the included Hue Bridge
