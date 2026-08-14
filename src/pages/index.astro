@@ -221,12 +221,50 @@ const heroArticle        = featuredArticles[0] ?? latestArticles[0] ?? null;
           style="border-top: 1px solid rgb(255 255 255 / 0.12); animation-delay: 560ms;"
         >
           {[
-            { icon: '★★★★★', label: 'Trusted Guides' },
-            { icon: '100+',   label: 'Reviews' },
-            { icon: '↻',      label: 'Weekly Updates' },
+            { icon: 'stars',   label: 'Trusted Guides' },
+            { icon: 'count',   label: 'Reviews' },
+            { icon: 'refresh', label: 'Weekly Updates' },
           ].map((item) => (
             <div class="flex items-center gap-2">
-              <span class="text-amber-400 text-sm font-bold" aria-hidden="true">{item.icon}</span>
+              {item.icon === 'stars' && (
+                <span class="flex items-center gap-0.5 text-amber-400" aria-hidden="true">
+                  {Array.from({ length: 5 }).map(() => (
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="w-3.5 h-3.5"
+                    >
+                      <path d="m12 3 2.78 5.63 6.22.9-4.5 4.39 1.06 6.2L12 17.2l-5.56 2.92 1.06-6.2L3 9.53l6.22-.9L12 3Z" />
+                    </svg>
+                  ))}
+                </span>
+              )}
+              {item.icon === 'count' && (
+                <span class="text-amber-400 text-sm font-bold" aria-hidden="true">100+</span>
+              )}
+              {item.icon === 'refresh' && (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.25"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="w-4 h-4 text-amber-400"
+                  aria-hidden="true"
+                >
+                  <path d="M20 11a8.1 8.1 0 0 0-14.8-4.4L3 9" />
+                  <path d="M3 4v5h5" />
+                  <path d="M4 13a8.1 8.1 0 0 0 14.8 4.4L21 15" />
+                  <path d="M21 20v-5h-5" />
+                </svg>
+              )}
               <span class="text-xs text-slate-300 font-medium">{item.label}</span>
             </div>
           ))}
@@ -303,7 +341,22 @@ const heroArticle        = featuredArticles[0] ?? latestArticles[0] ?? null;
                     loading="lazy"
                   />
                 ) : (
-                  <span class="text-slate-600 text-lg" aria-hidden="true">📦</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="w-6 h-6 text-slate-600"
+                    aria-hidden="true"
+                  >
+                    <path d="m21 8-9-5-9 5 9 5 9-5Z" />
+                    <path d="M3 8v8l9 5 9-5V8" />
+                    <path d="M12 13v8" />
+                    <path d="m7.5 5.5 9 5" />
+                  </svg>
                 )}
               </div>
               <div class="flex-1 min-w-0">
@@ -315,7 +368,19 @@ const heroArticle        = featuredArticles[0] ?? latestArticles[0] ?? null;
                 </p>
                 {topProducts[0].data.rating && (
                   <div class="flex items-center gap-1 mt-1">
-                    <span class="text-amber-400 text-xs" aria-hidden="true">★</span>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="w-3.5 h-3.5 text-amber-400"
+                      aria-hidden="true"
+                    >
+                      <path d="m12 3 2.78 5.63 6.22.9-4.5 4.39 1.06 6.2L12 17.2l-5.56 2.92 1.06-6.2L3 9.53l6.22-.9L12 3Z" />
+                    </svg>
                     <span class="text-xs font-semibold" style="color: rgb(252 211 77 / 0.9);">{topProducts[0].data.rating}</span>
                     <span class="text-xs" style="color: rgb(255 255 255 / 0.35);">/5</span>
                   </div>
@@ -1256,17 +1321,28 @@ const heroArticle        = featuredArticles[0] ?? latestArticles[0] ?? null;
         <ul class="flex flex-wrap items-center justify-center gap-x-8 gap-y-3"
             role="list">
           {[
-            { icon: '✓', label: 'Expert Tested' },
-            { icon: '✓', label: 'Independent Reviews' },
-            { icon: '✓', label: 'Updated Regularly' },
-            { icon: '✓', label: 'Affiliate Supported' },
+            { label: 'Expert Tested' },
+            { label: 'Independent Reviews' },
+            { label: 'Updated Regularly' },
+            { label: 'Affiliate Supported' },
           ].map((item) => (
             <li class="flex items-center gap-2 text-sm text-slate-500">
               <span class="flex items-center justify-center w-5 h-5 rounded-full
-                           text-emerald-600 font-bold text-xs flex-shrink-0"
+                           text-emerald-600 flex-shrink-0"
                     style="background: #D1FAE5;"
                     aria-hidden="true">
-                {item.icon}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="w-3.5 h-3.5"
+                >
+                  <path d="m5 12 4 4L19 6" />
+                </svg>
               </span>
               {item.label}
             </li>
