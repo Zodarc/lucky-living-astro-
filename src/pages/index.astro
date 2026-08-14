@@ -23,10 +23,28 @@ import {
 } from '@data/categories';
 import { buildWebsiteSchema, buildCanonical } from '@utils/seo';
 import { formatDate, isoDate } from '@utils/relatedContent';
-import { getCollection }   from 'astro:content';
+import { getCollection, getEntry } from 'astro:content';
 
 const allArticles = await getCollection('articles', (e) => !e.data.draft);
 const allProducts = await getCollection('products', (e) => !e.data.draft);
+const comparisons = (await getCollection('comparisons', (e) => !e.data.draft))
+  .sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime())
+  .slice(0, 3);
+
+const recentComparisons = (
+  await Promise.all(
+    comparisons.map(async (comparison) => ({
+      comparison,
+      productA: await getEntry('products', comparison.data.productA),
+      productB: await getEntry('products', comparison.data.productB),
+    }))
+  )
+).filter(
+  (item): item is typeof item & {
+    productA: NonNullable<typeof item.productA>;
+    productB: NonNullable<typeof item.productB>;
+  } => Boolean(item.productA && item.productB)
+);
 
 const latestArticles = allArticles
   .sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime())
@@ -1363,6 +1381,122 @@ const heroArticle        = featuredArticles[0] ?? latestArticles[0] ?? null;
   </section>
 )}
 
+<!-- COMPARISONS -->
+{recentComparisons.length > 0 && (
+  <section
+    class="home-section pr-section relative overflow-hidden"
+    aria-labelledby="comparisons-heading"
+  >
+    <div class="absolute inset-0 pointer-events-none" aria-hidden="true"
+         style="background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);" />
+    <div class="absolute -top-24 -left-24 w-96 h-96 rounded-full pointer-events-none"
+         aria-hidden="true"
+         style="background: radial-gradient(circle, rgb(37 99 235 / 0.06) 0%, transparent 70%);
+                filter: blur(52px);" />
+    <div class="absolute bottom-0 -right-24 w-96 h-96 rounded-full pointer-events-none"
+         aria-hidden="true"
+         style="background: radial-gradient(circle, rgb(217 119 6 / 0.06) 0%, transparent 70%);
+                filter: blur(52px);" />
+
+    <div class="container relative z-10">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-10 lg:mb-12">
+        <div>
+          <p class="eyebrow mb-3" style="color: var(--color-brand-accent);" data-animate="fade">
+            Side by Side
+          </p>
+          <h2
+            id="comparisons-heading"
+            class="font-serif font-bold text-slate-900 tracking-tight text-balance mb-4"
+            style="font-size: clamp(2rem, 4vw, 3rem);"
+            data-animate="fade-up"
+            data-delay="100"
+          >
+            Compare Before You Buy
+          </h2>
+          <p
+            class="text-slate-500 max-w-lg leading-relaxed"
+            style="font-size: 1.0625rem;"
+            data-animate="fade-up"
+            data-delay="200"
+          >
+            Clear side-by-side breakdowns to help you choose the product that fits your home and habits.
+          </p>
+        </div>
+        <a
+          href="/compare/"
+          class="pr-view-all flex-shrink-0 inline-flex items-center gap-2 px-6 py-3 rounded-full
+                 text-sm font-semibold no-underline border-2 border-slate-200 text-slate-700
+                 transition-all duration-200 hover:border-brand-accent hover:text-brand-accent
+                 hover:shadow-md self-start sm:self-auto"
+        >
+          View All Comparisons
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15"
+               viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+               aria-hidden="true">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </div>
+
+      <div class="comparison-grid">
+        {recentComparisons.map(({ comparison, productA, productB }, index) => (
+          <a
+            href={`/compare/${comparison.slug}/`}
+            class="comparison-card group"
+            data-animate="fade-up"
+            data-delay={String(index * 100)}
+          >
+            <div class="comparison-card-products">
+              <div class="comparison-product">
+                <img
+                  src={productA.data.image}
+                  alt={productA.data.imageAlt || productA.data.name}
+                  width="112"
+                  height="112"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <span>{productA.data.name}</span>
+              </div>
+              <span class="comparison-vs" aria-hidden="true">VS</span>
+              <div class="comparison-product">
+                <img
+                  src={productB.data.image}
+                  alt={productB.data.imageAlt || productB.data.name}
+                  width="112"
+                  height="112"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <span>{productB.data.name}</span>
+              </div>
+            </div>
+            <div class="comparison-card-body">
+              <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-amber-600 mb-2">
+                Product comparison
+              </p>
+              <h3 class="font-serif text-xl font-bold text-slate-900 leading-snug group-hover:text-brand-accent transition-colors">
+                {comparison.data.title}
+              </h3>
+              <p class="text-sm text-slate-500 leading-relaxed mt-3 line-clamp-2">
+                {comparison.data.description}
+              </p>
+              <span class="inline-flex items-center gap-2 mt-5 text-sm font-semibold text-slate-700 group-hover:text-brand-accent">
+                Read comparison
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15"
+                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                     aria-hidden="true">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
+
 <!-- EDITOR'S PICKS -->
 {featuredArticles.length > 0 && (
   <section class="section bg-white" aria-labelledby="editors-heading">
@@ -1663,6 +1797,90 @@ const heroArticle        = featuredArticles[0] ?? latestArticles[0] ?? null;
     gap: 1.25rem;
   }
 
+  .comparison-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+
+  .comparison-card {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid #E2E8F0;
+    border-radius: 1.25rem;
+    background: #FFFFFF;
+    box-shadow: 0 4px 16px -8px rgb(15 23 42 / 0.2);
+    text-decoration: none;
+    transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
+  }
+
+  .comparison-card:hover {
+    transform: translateY(-3px);
+    border-color: rgb(37 99 235 / 0.25);
+    box-shadow: 0 16px 30px -14px rgb(15 23 42 / 0.28);
+  }
+
+  .comparison-card-products {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    gap: 0.5rem;
+    align-items: center;
+    padding: 1rem;
+    background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%);
+    border-bottom: 1px solid #E2E8F0;
+  }
+
+  .comparison-product {
+    min-width: 0;
+    text-align: center;
+  }
+
+  .comparison-product img {
+    width: 100%;
+    height: 6rem;
+    object-fit: contain;
+    border-radius: 0.75rem;
+    background: #FFFFFF;
+    padding: 0.5rem;
+  }
+
+  .comparison-product span {
+    display: -webkit-box;
+    margin-top: 0.5rem;
+    overflow: hidden;
+    color: #475569;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    line-height: 1.3;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  .comparison-vs {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    flex-shrink: 0;
+    border: 1px solid #CBD5E1;
+    border-radius: 9999px;
+    background: #FFFFFF;
+    color: #64748B;
+    font-size: 0.625rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+  }
+
+  .comparison-card-body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    padding: 1.25rem;
+  }
+
 
   /* Tablet */
   @media (max-width: 1024px) {
@@ -1676,6 +1894,10 @@ const heroArticle        = featuredArticles[0] ?? latestArticles[0] ?? null;
       grid-template-columns: repeat(2, minmax(0,1fr));
     }
 
+    .comparison-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
   }
 
 
@@ -1683,6 +1905,10 @@ const heroArticle        = featuredArticles[0] ?? latestArticles[0] ?? null;
   @media (max-width: 640px) {
 
     .pr-supporting {
+      grid-template-columns: 1fr;
+    }
+
+    .comparison-grid {
       grid-template-columns: 1fr;
     }
 

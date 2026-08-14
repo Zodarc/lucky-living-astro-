@@ -177,3 +177,27 @@ const productsCollection = defineCollection({
 
   }),
 });
+
+// ── Product comparison collection ─────────────────────────────
+const comparisonsCollection = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string().min(1),
+    description: z.string().min(1),
+    productA: z.string().min(1),
+    productB: z.string().min(1),
+    publishDate: z.coerce.date(),
+    updatedDate: z.coerce.date().optional(),
+    seoTitle: z.string().optional(),
+    seoDescription: z.string().optional(),
+    keywords: z.array(z.string()).optional().default([]),
+    draft: z.boolean().optional().default(false),
+    featured: z.boolean().optional().default(false),
+  }),
+});
+
+export const collections = {
+  articles: articlesCollection,
+  products: productsCollection,
+  comparisons: comparisonsCollection,
+};

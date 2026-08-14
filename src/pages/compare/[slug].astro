@@ -1,0 +1,103 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumbs from '@components/Breadcrumbs.astro';
+import { getCollection, getEntry } from 'astro:content';
+import { buildArticleSchema, buildBreadcrumbSchema, buildCanonical } from '@utils/seo';
+import { formatDate, isoDate } from '@utils/relatedContent';
+
+export async function getStaticPaths() {
+  const comparisons = await getCollection('comparisons', (entry) => !entry.data.draft);
+  return comparisons.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const productA = await getEntry('products', entry.data.productA);
+const productB = await getEntry('products', entry.data.productB);
+
+if (!productA || !productB) {
+  throw new Error(
+    `Comparison "${entry.slug}" references missing products: ${entry.data.productA} and/or ${entry.data.productB}`
+  );
+}
+
+const canonical = buildCanonical(`/compare/${entry.slug}/`);
+const { Content } = await entry.render();
+const articleSchema = buildArticleSchema({
+  title: entry.data.seoTitle ?? entry.data.title,
+  description: entry.data.seoDescription ?? entry.data.description,
+  url: canonical,
+  image: productA.data.image,
+  publishDate: entry.data.publishDate,
+  updatedDate: entry.data.updatedDate,
+  author: 'Spoky Curates',
+});
+const breadcrumbSchema = buildBreadcrumbSchema([
+  { name: 'Home', url: '/' },
+  { name: 'Comparisons', url: '/compare/' },
+  { name: entry.data.title, url: `/compare/${entry.slug}/` },
+]);
+---
+
+<BaseLayout
+  title={entry.data.seoTitle ?? entry.data.title}
+  description={entry.data.seoDescription ?? entry.data.description}
+  keywords={entry.data.keywords}
+  canonical={canonical}
+  ogImage={productA.data.image}
+  ogType="article"
+  publishDate={entry.data.publishDate}
+  updatedDate={entry.data.updatedDate}
+  author="Spoky Curates"
+  schema={[articleSchema, breadcrumbSchema]}
+>
+  <div class="container">
+    <Breadcrumbs items={[
+      { label: 'Home', href: '/' },
+      { label: 'Comparisons', href: '/compare/' },
+      { label: entry.data.title, href: `/compare/${entry.slug}/` },
+    ]} />
+  </div>
+
+  <article class="container pb-16 lg:pb-24">
+    <header class="max-w-3xl mx-auto mb-10">
+      <p class="badge badge-primary mb-4">Comparison</p>
+      <h1 class="font-serif text-4xl lg:text-5xl font-bold text-slate-900 leading-tight mb-6">
+        {entry.data.title}
+      </h1>
+      <p class="text-xl text-slate-600 leading-relaxed mb-6">{entry.data.description}</p>
+      <time class="text-sm text-slate-500" datetime={isoDate(entry.data.publishDate)}>
+        Published {formatDate(entry.data.publishDate)}
+      </time>
+    </header>
+
+    <section class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 mb-12" aria-label="Products compared">
+      {[productA, productB].map((product) => (
+        <a href={`/reviews/${product.slug}/`} class="card flex items-center gap-5 p-5 no-underline group">
+          <img
+            src={product.data.image}
+            alt={product.data.imageAlt || product.data.name}
+            width="120"
+            height="120"
+            class="w-24 h-24 object-contain rounded-xl bg-slate-50 p-2"
+          />
+          <div>
+            <p class="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Product</p>
+            <h2 class="font-serif text-xl font-bold text-slate-900 group-hover:text-brand-accent">
+              {product.data.name}
+            </h2>
+            {product.data.rating && (
+              <p class="text-sm text-amber-600 mt-2">Rated {product.data.rating}/5</p>
+            )}
+          </div>
+        </a>
+      ))}
+    </section>
+
+    <div class="max-w-prose mx-auto prose prose-lg prose-slate">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>
