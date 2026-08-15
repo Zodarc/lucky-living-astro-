@@ -1,0 +1,196 @@
+---
+/**
+ * category/[slug]/[...page].astro — Paginated category listing pages
+ *
+ * Routes:  /category/smart-home/          → page 1
+ *          /category/smart-home/2/        → page 2  …etc.
+ *
+ * getStaticPaths loops every category and calls paginate() once per slug,
+ * producing a flat list of path objects that Astro merges into routes.
+ *
+ * The combined article+product list is sorted newest-first for articles
+ * and by rating for products, then merged articles-first before paginating.
+ * Both ArticleCard and ProductCard are rendered depending on collection type.
+ */
+import BaseLayout          from '@layouts/BaseLayout.astro';
+import ArticleCard         from '@components/ArticleCard.astro';
+import ProductCard         from '@components/ProductCard.astro';
+import NewsletterSection   from '@components/NewsletterSection.astro';
+import { CATEGORIES, getCategoryBySlug } from '@data/categories';
+import { buildCanonical, buildBreadcrumbSchema } from '@utils/seo';
+import { getCollection }   from 'astro:content';
+import type { GetStaticPathsOptions } from 'astro';
+
+export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
+  const allArticles = await getCollection('articles', (e) => !e.data.draft);
+  const allProducts = await getCollection('products', (e) => !e.data.draft);
+
+  // One paginate() call per category — produces all page paths for that slug
+  return CATEGORIES.flatMap((cat) => {
+    const articles = allArticles
+      .filter((e) => e.data.category === cat.slug)
+      .sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime())
+      .map((e) => ({ collection: 'articles' as const, entry: e }));
+
+    const products = allProducts
+      .filter((e) => e.data.category === cat.slug)
+      .sort((a, b) => (b.data.rating ?? 0) - (a.data.rating ?? 0))
+      .map((e) => ({ collection: 'products' as const, entry: e }));
+
+    // Articles first, then products
+    const combined = [...articles, ...products];
+
+    return paginate(combined, {
+      params:   { slug: cat.slug },
+      props:    { slug: cat.slug },
+      pageSize: 9,
+    });
+  });
+}
+
+const { slug } = Astro.props;
+const { page } = Astro.props;
+
+const category = getCategoryBySlug(slug);
+if (!category) return Astro.redirect('/404');
+
+const totalItems = page.total;
+
+const canonical = buildCanonical(page.url.current);
+
+const breadcrumbSchema = buildBreadcrumbSchema([
+  { name: 'Home',        url: '/' },
+  { name: category.name, url: `/category/${slug}/` },
+]);
+
+const isFirstPage = page.currentPage === 1;
+const pageTitle   = isFirstPage
+  ? category.seoTitle
+  : `${category.seoTitle} — Page ${page.currentPage}`;
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={category.seoDescription}
+  keywords={category.keywords}
+  canonical={canonical}
+  schema={breadcrumbSchema}
+>
+
+  <!-- ── Category hero ──────────────────────────────────── -->
+  <section
+    class="relative py-16 lg:py-24 overflow-hidden text-white"
+    style={`background-color: ${category.accentHex};`}
+    aria-labelledby="category-heading"
+  >
+    {category.image && (
+      <img
+        src={category.image}
+        alt=""
+        aria-hidden="true"
+        class="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-overlay"
+        loading="eager"
+      />
+    )}
+    <div class="absolute inset-0 gradient-dark-bottom opacity-50" />
+
+    <div class="container relative z-10">
+      <nav aria-label="Breadcrumb" class="mb-6">
+        <ol class="flex gap-2 text-sm text-white/60">
+          <li><a href="/" class="hover:text-white transition-colors">Home</a></li>
+          <li aria-hidden="true" class="text-white/40">/</li>
+          <li class="text-white font-medium" aria-current="page">{category.name}</li>
+        </ol>
+      </nav>
+
+      <h1 id="category-heading" class="font-serif text-4xl lg:text-5xl font-bold mb-4">
+        {category.name}
+      </h1>
+      <p class="text-lg text-white/80 max-w-2xl leading-relaxed">
+        {category.description}
+      </p>
+      {totalItems > 0 && (
+        <p class="mt-4 text-sm text-white/50">
+          {totalItems} {totalItems === 1 ? 'item' : 'items'}
+        </p>
+      )}
+    </div>
+  </section>
+
+  <!-- ── Content grid ────────────────────────────────────── -->
+  {page.data.length > 0 ? (
+    <section class="section bg-white" aria-labelledby="content-heading">
+      <div class="container">
+        <h2 id="content-heading" class="sr-only">
+          {category.name} content, page {page.currentPage}
+        </h2>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {page.data.map(({ collection, entry }) => (
+            collection === 'articles'
+              ? <ArticleCard entry={entry} />
+              : <ProductCard entry={entry} />
+          ))}
+        </div>
+
+        <!-- ── Pagination controls ────────────────────────── -->
+        {(page.url.prev || page.url.next) && (
+          <nav
+            class="flex items-center justify-between mt-12 pt-8 border-t border-slate-200"
+            aria-label={`${category.name} pagination`}
+          >
+            <!-- Prev -->
+            <div>
+              {page.url.prev ? (
+                <a href={page.url.prev} class="btn btn-outline-dark" rel="prev">
+                  ← Previous
+                </a>
+              ) : (
+                <span class="btn btn-outline-dark opacity-40 cursor-not-allowed" aria-disabled="true">
+                  ← Previous
+                </span>
+              )}
+            </div>
+
+            <!-- Page indicator -->
+            <p class="text-sm text-slate-500">
+              Page <strong class="text-slate-800">{page.currentPage}</strong>
+              {' '}of{' '}
+              <strong class="text-slate-800">{page.lastPage}</strong>
+            </p>
+
+            <!-- Next -->
+            <div>
+              {page.url.next ? (
+                <a href={page.url.next} class="btn btn-outline-dark" rel="next">
+                  Next →
+                </a>
+              ) : (
+                <span class="btn btn-outline-dark opacity-40 cursor-not-allowed" aria-disabled="true">
+                  Next →
+                </span>
+              )}
+            </div>
+          </nav>
+        )}
+      </div>
+    </section>
+  ) : (
+    <!-- ── Empty state ──────────────────────────────────── -->
+    <section class="section bg-white">
+      <div class="container text-center py-20">
+        <p class="text-4xl mb-4">✍️</p>
+        <h2 class="font-serif text-2xl font-bold text-slate-900 mb-3">
+          Content coming soon
+        </h2>
+        <p class="text-slate-500 mb-8">
+          We're working on {category.name} content. Check back soon!
+        </p>
+        <a href="/" class="btn-primary">Back to Homepage</a>
+      </div>
+    </section>
+  )}
+
+  <NewsletterSection />
+
+</BaseLayout>

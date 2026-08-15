@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
 import { getCollection, getEntry } from 'astro:content';
-import { buildCanonical } from '@utils/seo';
+import { buildCanonical, buildBreadcrumbSchema } from '@utils/seo';
 
 const comparisons = (await getCollection('comparisons', (entry) => !entry.data.draft))
   .sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime());
@@ -14,13 +14,25 @@ const resolvedComparisons = (
       productB: await getEntry('products', comparison.data.productB),
     }))
   )
-).filter(({ productA, productB }) => productA && productB);
+).filter(
+  (item): item is typeof item & {
+    productA: NonNullable<typeof item.productA>;
+    productB: NonNullable<typeof item.productB>;
+  } => Boolean(item.productA && item.productB)
+);
+
+const canonical = buildCanonical('/compare/');
+const breadcrumbSchema = buildBreadcrumbSchema([
+  { name: 'Home', url: '/' },
+  { name: 'Comparisons', url: '/compare/' },
+]);
 ---
 
 <BaseLayout
   title="Product Comparisons"
   description="Side-by-side product comparisons to help you choose the right smart-home and lifestyle upgrades."
-  canonical={buildCanonical('/compare/')}
+  canonical={canonical}
+  schema={breadcrumbSchema}
 >
   <section class="relative py-16 lg:py-24 bg-slate-900 text-white">
     <div class="container">
@@ -43,14 +55,14 @@ const resolvedComparisons = (
             >
               <div class="grid grid-cols-2 gap-2 p-4 bg-slate-50">
                 <img
-                  src={productA!.data.image}
-                  alt={productA!.data.imageAlt || productA!.data.name}
+                  src={productA.data.image}
+                  alt={productA.data.imageAlt || productA.data.name}
                   class="w-full aspect-square object-contain rounded-xl bg-white p-3"
                   loading="lazy"
                 />
                 <img
-                  src={productB!.data.image}
-                  alt={productB!.data.imageAlt || productB!.data.name}
+                  src={productB.data.image}
+                  alt={productB.data.imageAlt || productB.data.name}
                   class="w-full aspect-square object-contain rounded-xl bg-white p-3"
                   loading="lazy"
                 />

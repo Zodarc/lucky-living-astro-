@@ -4,6 +4,7 @@ import ProductCard from '@components/ProductCard.astro';
 import { getCollection } from 'astro:content';
 import { CATEGORIES } from '@data/categories';
 import { buildCanonical } from '@utils/seo';
+import { SITE } from '@data/site';
 
 const products = await getCollection(
   'products',
@@ -84,12 +85,27 @@ const reviewCategories = [
 ];
 
 const canonical = buildCanonical('/reviews/');
+
+// ItemList schema uses the default rating sort (all products, no filter applied)
+const itemListSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type':    'ItemList',
+  name:       'Product Reviews — ' + SITE.name,
+  url:        canonical,
+  itemListElement: sortedProducts.map((product, i) => ({
+    '@type':   'ListItem',
+    position:  i + 1,
+    url:       SITE.url.replace(/\/$/, '') + `/reviews/${product.slug}/`,
+    name:      product.data.name,
+  })),
+});
 ---
 
 <BaseLayout
   title="Product Reviews | Spoky Curates"
   description="Honest product reviews, ratings, and buying guides covering smart home, tech, wellness, and lifestyle products."
   canonical={canonical}
+  schema={itemListSchema}
 >
 
 <section class="relative py-16 lg:py-24 bg-slate-900 text-white">

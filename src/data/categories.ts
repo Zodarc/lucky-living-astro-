@@ -8,7 +8,7 @@ export interface Category {
   description:  string;
   seoTitle:     string;
   seoDescription: string;
-  keywords:     string;
+  keywords:     string[];
   image:        string;
   imageAlt:     string;
   color:        string;       // Tailwind bg color class
@@ -25,7 +25,7 @@ export const CATEGORIES: Category[] = [
     description:    'Control your home with the latest smart devices, automation systems, and connected technology.',
     seoTitle:       'Smart Home — Best Devices, Guides & Reviews | Spoky Curates',
     seoDescription: 'Discover the best smart home devices, automation tips, and honest reviews. Spoky Curates helps you build a smarter, more connected home.',
-    keywords:       'smart home, home automation, smart devices, IoT, smart speakers, smart lighting',
+    keywords:       ['smart home', 'home automation', 'smart devices', 'IoT', 'smart speakers', 'smart lighting'],
     image:          '/images/categories/smart-home.png',
     imageAlt:       'Smart home devices on a modern kitchen counter',
     color:          'bg-blue-600',
@@ -40,7 +40,7 @@ export const CATEGORIES: Category[] = [
     description:    'The best laptops, phones, wearables, and gadgets to power your everyday life.',
     seoTitle:       'Tech Life — Gadgets, Phones & Wearables | Spoky Curates',
     seoDescription: 'Find the best tech gadgets, smartphones, laptops, and wearables. Spoky Curates reviews the gear worth buying.',
-    keywords:       'tech gadgets, smartphones, laptops, wearables, headphones, tablets',
+    keywords:       ['tech gadgets', 'smartphones', 'laptops', 'wearables', 'headphones', 'tablets'],
     image:          '/images/categories/tech-life.jpg',
     imageAlt:       'Modern tech gadgets on a clean desk',
     color:          'bg-violet-600',
@@ -55,7 +55,7 @@ export const CATEGORIES: Category[] = [
     description:    'Beautiful, functional home ideas, furniture picks, and interior design inspiration.',
     seoTitle:       'Home & Design — Furniture, Decor & Interior Ideas | Spoky Curates',
     seoDescription: 'Explore home décor ideas, furniture recommendations, and interior design inspiration.',
-    keywords:       'home design, interior design, furniture, home decor, living room ideas',
+    keywords:       ['home design', 'interior design', 'furniture', 'home decor', 'living room ideas'],
     image:          '/images/categories/home-design.jpg',
     imageAlt:       'Beautifully designed modern living room',
     color:          'bg-amber-600',
@@ -70,7 +70,7 @@ export const CATEGORIES: Category[] = [
     description:    'Products and habits to help you sleep better, feel better, and live healthier.',
     seoTitle:       'Wellness — Health, Fitness & Wellbeing Products | Spoky Curates',
     seoDescription: 'Discover wellness products, fitness gear, and healthy lifestyle tips.',
-    keywords:       'wellness, fitness, health, sleep, meditation, nutrition, yoga',
+    keywords:       ['wellness', 'fitness', 'health', 'sleep', 'meditation', 'nutrition', 'yoga'],
     image:          '/images/categories/wellness.jpg',
     imageAlt:       'Wellness products including yoga mat and water bottle',
     color:          'bg-emerald-600',
@@ -85,7 +85,7 @@ export const CATEGORIES: Category[] = [
     description:    'Clothing, accessories, and personal care picks for everyday life.',
     seoTitle:       'Style — Fashion, Accessories & Personal Care | Spoky Curates',
     seoDescription: 'Explore style guides, clothing picks, and personal care recommendations.',
-    keywords:       'fashion, style, accessories, clothing, personal care, grooming, skincare',
+    keywords:       ['fashion', 'style', 'accessories', 'clothing', 'personal care', 'grooming', 'skincare'],
     image:          '/images/categories/style.jpg',
     imageAlt:       'Stylish clothing and accessories flatlay',
     color:          'bg-pink-600',
@@ -100,7 +100,7 @@ export const CATEGORIES: Category[] = [
     description:    'In-depth, honest product reviews across every category.',
     seoTitle:       'Product Reviews — Honest & In-Depth | Spoky Curates',
     seoDescription: 'Read honest, in-depth product reviews at Spoky Curates.',
-    keywords:       'product reviews, honest reviews, best products, buying guide',
+    keywords:       ['product reviews', 'honest reviews', 'best products', 'buying guide'],
     image:          '/images/categories/reviews.jpg',
     imageAlt:       'Products being reviewed and rated',
     color:          'bg-red-600',
@@ -115,7 +115,7 @@ export const CATEGORIES: Category[] = [
     description:    'The best sales, limited-time offers, and discount finds across tech, home, and lifestyle.',
     seoTitle:       'Best Deals — Sales, Discounts & Top Offers | Spoky Curates',
     seoDescription: 'Find the best deals on tech, home, and lifestyle products.',
-    keywords:       'best deals, sales, discounts, Amazon deals, product offers',
+    keywords:       ['best deals', 'sales', 'discounts', 'Amazon deals', 'product offers'],
     image:          '/images/categories/deals.jpg',
     imageAlt:       'Shopping bags and sale tags representing great deals',
     color:          'bg-orange-600',

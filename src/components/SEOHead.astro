@@ -15,6 +15,8 @@ import {
 interface Props extends SeoProps {
   /** Pre-built JSON-LD schema string(s) — pass one or an array */
   schema?: string | string[];
+  /** Set true to suppress the canonical tag (e.g. 404 pages) */
+  skipCanonical?: boolean;
 }
 
 const {
@@ -29,6 +31,7 @@ const {
   updatedDate,
   author,
   schema,
+  skipCanonical = false,
 } = Astro.props;
 
 const pageTitle    = buildTitle(title);
@@ -57,7 +60,7 @@ const schemas = schema
 <meta name="keywords"     content={pageKeywords} />
 <meta name="robots"       content={noindex ? 'noindex, nofollow' : 'index, follow'} />
 <meta name="author"       content={author ?? SITE.name} />
-<link rel="canonical"     href={pageCanonical} />
+{!skipCanonical && <link rel="canonical" href={pageCanonical} />}
 
 <!-- ── Open Graph ────────────────────────────────────────── -->
 <meta property="og:type"        content={ogType} />

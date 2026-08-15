@@ -17,13 +17,16 @@ export const SITE = {
     width:  180,
     height: 40,
   },
-  ogImage: '/images/brand/og-default.jpg',
+  ogImage: '/images/brand/og-default.png',
 
   // SEO defaults
   seo: {
-    titleSeparator:  ' | ',
-    defaultKeywords: 'smart home, product reviews, lifestyle, tech gadgets, home design, wellness, best deals',
-    twitterHandle:   '@spokycurates',
+    titleSeparator:       ' | ',
+    defaultKeywords:      'smart home, product reviews, lifestyle, tech gadgets, home design, wellness, best deals',
+    twitterHandle:        '@spokycurates',
+    // Paste your Google Search Console verification token here.
+    // Found at: Search Console → Settings → Ownership verification → HTML tag → content="..."
+    googleSiteVerification: 'Wr1Dqol3j0bOExREbh55RpaI-5YZellpovERmVKFlDo',
   },
 
   // Navigation
@@ -57,7 +60,7 @@ export const SITE = {
 
   // Affiliate
   affiliate: {
-    amazonTag:       'spokycurates-20',   // Your Amazon Associates tag e.g. 'spokycurates-20'
+    amazonTag:       'luckyliving07-20',   // Your Amazon Associates tag e.g. 'spokycurates-20'
     disclosureShort: 'We may earn a commission from links on this page.',
     disclosureUrl:   '/affiliate-disclosure/',
   },
@@ -69,7 +72,12 @@ export const SITE = {
     subheading:  'Join thousands of readers who get our best product picks and tips delivered straight to their inbox.',
     placeholder: 'Enter your email address',
     buttonText:  'Subscribe Free',
-    formAction:  '',   // Your email provider action URL
+    // Mailchimp embedded form action URL.
+    // How to get it:
+    //   1. In Mailchimp, go to Audience → Signup forms → Embedded forms.
+    //   2. Copy the <form action="..."> URL from the generated HTML.
+    //   It looks like: https://yoursite.us1.list-manage.com/subscribe/post?u=XXXX&id=YYYY
+    formAction:  'https://spokycurates.us19.list-manage.com/subscribe/post?u=a14f07ac530e0319847b5acac&amp;id=d7596b3816&amp;f_id=00e3c2e1f0',
   },
 
   // Copyright

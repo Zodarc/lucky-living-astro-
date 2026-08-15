@@ -10,10 +10,12 @@ import Footer from '@components/Footer.astro';
 
 import '@styles/global.css';
 
+import { SITE } from '@data/site';
 import type { SeoProps } from '@utils/seo';
 
 interface Props extends SeoProps {
-  schema?: string | string[];
+  schema?:        string | string[];
+  skipCanonical?: boolean;
 }
 
 const seoProps = Astro.props;
@@ -23,8 +25,18 @@ const seoProps = Astro.props;
 <html lang="en" class="scroll-smooth">
 <head>
   <SEOHead {...seoProps} />
-  <meta name="google-site-verification" content="Wr1Dqol3j0bOExREbh55RpaI-5YZellpovERmVKFlDo" />
+  {SITE.seo.googleSiteVerification && (
+    <meta name="google-site-verification" content={SITE.seo.googleSiteVerification} />
+  )}
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-K6BWT6QPJD"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
+  gtag('config', 'G-K6BWT6QPJD');
+</script>
   <!--
     No-JS safety net:
     If JavaScript is disabled, reveal all animated elements.
@@ -38,7 +50,9 @@ const seoProps = Astro.props;
       }
     </style>
   </noscript>
-  <script type="module" src="/src/scripts/animations.ts"></script>
+  <script>
+    import '../scripts/animations.ts';
+  </script>
 </head>
 
 <body class="min-h-screen flex flex-col bg-white text-slate-900">

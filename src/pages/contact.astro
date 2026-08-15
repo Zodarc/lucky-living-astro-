@@ -19,24 +19,39 @@ import { buildCanonical }from '@utils/seo';
       below and we'll get back to you as soon as possible.
     </p>
 
-    <!-- Contact form -->
+    <!-- Contact form — handled by Formspree.
+         1. Sign up at https://formspree.io and create a new form.
+         2. Replace REPLACE_WITH_YOUR_FORMSPREE_ID below with your form ID
+            (the 8-character code from your Formspree dashboard endpoint URL,
+            e.g. https://formspree.io/f/abcd1234 → use "abcd1234").
+         3. The _next hidden input redirects to /contact-success/ on submission.
+    -->
     <form
       class="space-y-6"
       name="contact"
-      method="post"
-      action="/contact-success/"
+      method="POST"
+      action="https://formspree.io/f/mnpanzjo"
       aria-label="Contact form"
     >
+      <!-- Redirect to success page after submission -->
+      <input type="hidden" name="_next" value="/contact-success/" />
+      <!-- Optional: prevents Formspree's default spam filter email subject -->
+      <input type="hidden" name="_subject" value="New contact message — Spoky Curates" />
+      <!-- Required field note -->
+      <p id="required-note" class="sr-only">Fields marked with an asterisk (*) are required.</p>
+
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <div>
           <label for="name" class="block text-sm font-medium text-slate-700 mb-2">
-            Name <span class="text-red-500" aria-label="required">*</span>
+            Name <span class="text-red-500" aria-hidden="true">*</span>
           </label>
           <input
             id="name"
             type="text"
             name="name"
             required
+            aria-required="true"
+            aria-describedby="required-note"
             autocomplete="name"
             class="input"
             placeholder="Your name"
@@ -44,13 +59,15 @@ import { buildCanonical }from '@utils/seo';
         </div>
         <div>
           <label for="email" class="block text-sm font-medium text-slate-700 mb-2">
-            Email <span class="text-red-500" aria-label="required">*</span>
+            Email <span class="text-red-500" aria-hidden="true">*</span>
           </label>
           <input
             id="email"
             type="email"
             name="email"
             required
+            aria-required="true"
+            aria-describedby="required-note"
             autocomplete="email"
             class="input"
             placeholder="you@example.com"
@@ -74,12 +91,14 @@ import { buildCanonical }from '@utils/seo';
 
       <div>
         <label for="message" class="block text-sm font-medium text-slate-700 mb-2">
-          Message <span class="text-red-500" aria-label="required">*</span>
+          Message <span class="text-red-500" aria-hidden="true">*</span>
         </label>
         <textarea
           id="message"
           name="message"
           required
+          aria-required="true"
+          aria-describedby="required-note"
           rows="6"
           class="input resize-none"
           placeholder="Tell us how we can help…"

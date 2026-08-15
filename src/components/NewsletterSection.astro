@@ -41,11 +41,16 @@ if (!newsletter.enabled) return;
           method="post"
           aria-label="Newsletter signup"
         >
+          {/* Mailchimp requires the field name EMAIL (uppercase).            */}
+          {/* The b_... hidden field is Mailchimp's bot-filter honeypot —     */}
+          {/* leave it blank and do not label it.                             */}
+          {/* Replace u= and id= values once you paste the real action URL.  */}
+          <input type="hidden" name="b_REPLACE_u_VALUE_REPLACE_id_VALUE" value="" aria-hidden="true" />
           <label for="nl-email" class="sr-only">Your email address</label>
           <input
             id="nl-email"
             type="email"
-            name="email"
+            name="EMAIL"
             placeholder={newsletter.placeholder}
             required
             autocomplete="email"
@@ -80,11 +85,12 @@ if (!newsletter.enabled) return;
           method="post"
           aria-label="Newsletter signup"
         >
+          <input type="hidden" name="b_REPLACE_u_VALUE_REPLACE_id_VALUE" value="" aria-hidden="true" />
           <label for="nl-footer-email" class="sr-only">Your email address</label>
           <input
             id="nl-footer-email"
             type="email"
-            name="email"
+            name="EMAIL"
             placeholder={newsletter.placeholder}
             required
             autocomplete="email"

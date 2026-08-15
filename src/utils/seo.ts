@@ -21,6 +21,7 @@ export interface SeoProps {
  */
 export function buildTitle(title?: string): string {
   if (!title || title === SITE.name) return SITE.name + ' — ' + SITE.tagline;
+  if (title.includes(SITE.name)) return title;
   return `${title}${SITE.seo.titleSeparator}${SITE.name}`;
 }
 
@@ -147,6 +148,49 @@ export function buildWebsiteSchema(): string {
       'query-input': 'required name=search_term_string',
     },
   };
+  return JSON.stringify(schema);
+}
+
+/**
+ * Build JSON-LD FAQPage schema.
+ */
+export function buildFAQSchema(
+  items: Array<{ question: string; answer: string }>
+): string {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: items.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.answer,
+      },
+    })),
+  };
+
+  return JSON.stringify(schema);
+}
+
+/**
+ * Build JSON-LD Organization schema.
+ * Used on the About page to identify the site as an Organization.
+ */
+export function buildOrganizationSchema(): string {
+  const sameAs = Object.values(SITE.social).filter(Boolean);
+  const schema: Record<string, unknown> = {
+    '@context': 'https://schema.org',
+    '@type':    'Organization',
+    name:       SITE.name,
+    url:        SITE.url,
+    logo: {
+      '@type': 'ImageObject',
+      url:     buildOgImageUrl(SITE.logo.src),
+    },
+    description: SITE.description,
+  };
+  if (sameAs.length) schema.sameAs = sameAs;
   return JSON.stringify(schema);
 }
 

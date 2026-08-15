@@ -38,7 +38,8 @@ export async function GET() {
     JSON.stringify(searchItems),
     {
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type":  "application/json; charset=utf-8",
+        "Cache-Control": "public, max-age=3600",
       }
     }
   );

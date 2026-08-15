@@ -96,9 +96,15 @@ const productsCollection = defineCollection({
       .default('Check Price on Amazon'),
 
     priceDisplay: z.string()
-      .optional(),
+      .optional()
+      .describe('Editorial price label shown in the UI (e.g. "$99.99"). This is NOT a live price — update manually when the price changes.'),
 
-    priceLastVerified: z.coerce.date(),
+    // ISO-8601 date string (YYYY-MM-DD) recording when priceDisplay was last
+    // manually verified. Rendered in the UI as a trust signal.
+    // When a live price feed (PA-API) is wired up, this field can be
+    // populated automatically by the data pipeline instead of by hand.
+    priceLastVerified: z.coerce.date().optional()
+      .describe('Date when the displayed price was last manually verified.'),
 
 
     // Review scoring
@@ -142,10 +148,6 @@ const productsCollection = defineCollection({
       .optional()
       .default([]),
 
-    relatedArticles: z.array(z.string())
-      .optional()
-      .default([]),
-
 
     // SEO
     seoTitle: z.string().optional(),
@@ -179,6 +181,7 @@ const productsCollection = defineCollection({
 
   }),
 });
+
 
 // ── Product comparison collection ─────────────────────────────
 const comparisonsCollection = defineCollection({

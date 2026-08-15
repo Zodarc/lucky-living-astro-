@@ -3,19 +3,20 @@ name: "Google Nest Audio"
 productName: "Google Nest Audio"
 description: "Google Nest Audio (3-Pack) Smart Speakers – Multi-Room Wireless Home Speaker Bundle with Bluetooth, Wi-Fi, Assistant, Stereo Sound, Voice Control & Smart Home Integration"
 brand: "Google"
-image: "/images/products/google nest audio.jpg"
+image: "/images/products/google-nest-audio.jpg"
 gallery:
-  - "/images/products/google nest audio.jpg"
-  - "/images/products/google nest audio.jpg"
-  - "/images/products/google nest audio.jpg"
-  - "/images/products/google nest audio.jpg"
-  - "/images/products/google nest audio.jpg"
+  - "/images/products/google-nest-audio.jpg"
+  - "/images/products/google-nest-audio.jpg"
+  - "/images/products/google-nest-audio.jpg"
+  - "/images/products/google-nest-audio.jpg"
+  - "/images/products/google-nest-audio.jpg"
 imageAlt: "Google Nest Audio (3-Pack) Smart Speakers"
 category: "smart-home"
 affiliateUrl: "https://amzn.to/3RLbR91"
 affiliateLabel: "Check Price on Amazon"
 priceDisplay: "$349.99"
 priceLastVerified: 2026-08-08
+
 rating: 4.4
 pros:
   - "Excellent sound quality"

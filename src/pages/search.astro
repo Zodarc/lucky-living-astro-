@@ -22,8 +22,16 @@ id="searchBox"
 type="search"
 placeholder="Search articles and reviews..."
 class="input mt-8"
+aria-label="Search articles and reviews"
 />
 
+<!-- Live region: announces result count to screen readers -->
+<p
+  id="search-status"
+  class="sr-only"
+  aria-live="polite"
+  aria-atomic="true"
+></p>
 
 <div id="results" class="mt-8 space-y-4">
 </div>
@@ -38,6 +46,7 @@ class="input mt-8"
 
 const input = document.querySelector("#searchBox");
 const results = document.querySelector("#results");
+const status  = document.querySelector("#search-status");
 
 
 let items = [];
@@ -57,6 +66,7 @@ const query = input.value.toLowerCase().trim();
 
 if(!query){
   results.innerHTML="";
+  status.textContent = "";
   return;
 }
 
@@ -78,34 +88,43 @@ return text.includes(query);
 });
 
 
-results.innerHTML = matches.length
+results.innerHTML = "";
 
-? matches.map(item => `
+if (!matches.length) {
+  status.textContent = "No results found.";
+  const empty = document.createElement("p");
+  empty.className = "text-slate-500";
+  empty.textContent = "No results found.";
+  results.appendChild(empty);
+} else {
+  status.textContent = `${matches.length} ${matches.length === 1 ? 'result' : 'results'} found.`;
+  for (const item of matches) {
+    // <a>
+    const a = document.createElement("a");
+    a.href = item.url;
+    a.className = "block rounded-xl border border-slate-200 p-5 hover:bg-slate-50";
 
-<a href="${item.url}"
-class="block rounded-xl border border-slate-200 p-5 hover:bg-slate-50">
+    // <h2>
+    const h2 = document.createElement("h2");
+    h2.className = "font-bold text-lg";
+    h2.textContent = item.title;
 
-<h2 class="font-bold text-lg">
-${item.title}
-</h2>
+    // <p> meta line
+    const meta = document.createElement("p");
+    meta.className = "text-sm text-slate-500";
+    meta.textContent = `${item.type} · ${item.category}`;
 
-<p class="text-sm text-slate-500">
-${item.type} · ${item.category}
-</p>
+    // <p> description
+    const desc = document.createElement("p");
+    desc.className = "mt-2 text-slate-600";
+    desc.textContent = item.description;
 
-<p class="mt-2 text-slate-600">
-${item.description}
-</p>
-
-</a>
-
-`).join("")
-
-:
-
-`<p class="text-slate-500">
-No results found.
-</p>`;
+    a.appendChild(h2);
+    a.appendChild(meta);
+    a.appendChild(desc);
+    results.appendChild(a);
+  }
+}
 
 });
 

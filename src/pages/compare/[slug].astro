@@ -7,15 +7,20 @@ import { formatDate, isoDate } from '@utils/relatedContent';
 
 export async function getStaticPaths() {
   const comparisons = await getCollection('comparisons', (entry) => !entry.data.draft);
-  return comparisons.map((entry) => ({
-    params: { slug: entry.slug },
-    props: { entry },
-  }));
+
+  return Promise.all(
+    comparisons.map(async (entry) => ({
+      params: { slug: entry.slug },
+      props: {
+        entry,
+        productA: await getEntry('products', entry.data.productA),
+        productB: await getEntry('products', entry.data.productB),
+      },
+    }))
+  );
 }
 
-const { entry } = Astro.props;
-const productA = await getEntry('products', entry.data.productA);
-const productB = await getEntry('products', entry.data.productB);
+const { entry, productA, productB } = Astro.props;
 
 if (!productA || !productB) {
   throw new Error(
@@ -73,7 +78,10 @@ const breadcrumbSchema = buildBreadcrumbSchema([
       </time>
     </header>
 
-    <section class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 mb-12" aria-label="Products compared">
+    <section
+      class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 mb-12"
+      aria-label="Products compared"
+    >
       {[productA, productB].map((product) => (
         <a href={`/reviews/${product.slug}/`} class="card flex items-center gap-5 p-5 no-underline group">
           <img

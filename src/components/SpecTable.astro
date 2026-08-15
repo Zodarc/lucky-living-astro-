@@ -1,0 +1,90 @@
+---
+/**
+ * SpecTable.astro
+ *
+ * Renders a specification table in one of two modes:
+ *
+ * SINGLE  (default) — one column of key/value pairs.
+ *   <SpecTable specs={product.data.specs} />
+ *
+ * COMPARE — two value columns with optional header labels above each.
+ *   <SpecTable
+ *     specsA={productA.data.specs}
+ *     specsB={productB.data.specs}
+ *     labelA="Echo (4th Gen)"
+ *     labelB="Nest Audio"
+ *   />
+ *   Rows are the union of keys from both specs objects, sorted
+ *   alphabetically. A missing key renders as "—" in that column.
+ */
+
+interface Props {
+  // Single-product mode
+  specs?: Record<string, string>;
+  // Compare mode — both must be provided together
+  specsA?: Record<string, string>;
+  specsB?: Record<string, string>;
+  labelA?: string;
+  labelB?: string;
+  // Optional heading override (defaults to "Specifications")
+  heading?: string;
+}
+
+const {
+  specs,
+  specsA,
+  specsB,
+  labelA,
+  labelB,
+  heading = 'Specifications',
+} = Astro.props;
+
+const isCompare = Boolean(specsA && specsB);
+
+// Build the row data depending on mode
+type Row = { key: string; a: string; b?: string };
+
+let rows: Row[] = [];
+
+if (isCompare && specsA && specsB) {
+  const allKeys = Array.from(
+    new Set([...Object.keys(specsA), ...Object.keys(specsB)])
+  ).sort((a, b) => a.localeCompare(b));
+  rows = allKeys.map((key) => ({
+    key,
+    a: specsA[key] ?? '—',
+    b: specsB[key] ?? '—',
+  }));
+} else if (specs) {
+  rows = Object.entries(specs).map(([key, value]) => ({ key, a: value }));
+}
+
+const hasRows = rows.length > 0;
+---
+
+{hasRows && (
+  <div class="mb-12">
+    <h2 class="font-serif text-2xl font-bold mb-5">{heading}</h2>
+
+    <div class="border rounded-2xl overflow-hidden">
+
+      {/* Compare mode: optional column headers */}
+      {isCompare && (labelA || labelB) && (
+        <div class={`grid border-b bg-slate-900 text-white text-sm font-semibold ${isCompare ? 'grid-cols-3' : 'grid-cols-2'}`}>
+          <div class="p-4 text-slate-400 uppercase tracking-wider text-xs">Spec</div>
+          {labelA && <div class="p-4 truncate">{labelA}</div>}
+          {labelB && <div class="p-4 truncate">{labelB}</div>}
+        </div>
+      )}
+
+      {rows.map(({ key, a, b }) => (
+        <div class={`grid border-b last:border-none ${isCompare ? 'grid-cols-3' : 'grid-cols-2'}`}>
+          <div class="p-4 font-semibold bg-slate-50 text-sm">{key}</div>
+          <div class="p-4 text-slate-600 text-sm">{a}</div>
+          {isCompare && <div class="p-4 text-slate-600 text-sm">{b}</div>}
+        </div>
+      ))}
+
+    </div>
+  </div>
+)}

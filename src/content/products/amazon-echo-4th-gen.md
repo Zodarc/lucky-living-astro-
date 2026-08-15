@@ -7,7 +7,9 @@ category: "smart-home"
 affiliateUrl: "https://amzn.to/4fqVXZe"
 affiliateLabel: "Check Price on Amazon"
 priceDisplay: "$114.98"
-priceLastVerified: 2026-08-10
+
+
+priceLastVerified: "2026-08-07"
 rating: 4.7
 pros:
   - "Rich, room-filling sound"

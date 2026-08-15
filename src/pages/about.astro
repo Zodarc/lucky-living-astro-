@@ -2,13 +2,16 @@
 import BaseLayout        from '@layouts/BaseLayout.astro';
 import NewsletterSection from '@components/NewsletterSection.astro';
 import { SITE }          from '@data/site';
-import { buildCanonical }from '@utils/seo';
+import { buildCanonical, buildOrganizationSchema } from '@utils/seo';
+
+const orgSchema = buildOrganizationSchema();
 ---
 
 <BaseLayout
   title="About Spoky Curates"
   description={`Learn about ${SITE.name} — our mission, values, and the team behind the reviews.`}
   canonical={buildCanonical('/about/')}
+  schema={orgSchema}
 >
   <div class="container py-16 lg:py-24 max-w-prose mx-auto">
 

@@ -16,7 +16,17 @@ import BaseLayout          from '@layouts/BaseLayout.astro';
 import ArticleCard         from '@components/ArticleCard.astro';
 import ProductCard         from '@components/ProductCard.astro';
 import NewsletterSection   from '@components/NewsletterSection.astro';
+import FAQSection          from '@components/FAQSection.astro';
+import { Image }           from 'astro:assets';
 import { SITE }            from '@data/site';
+
+// Hero carousel — statically imported so Astro can optimise + generate WebP
+import heroSlide1 from '../assets/images/hero/spoky-curates-hero.png';
+import heroSlide2 from '../assets/images/hero/hero-slide-2.jpg';
+import heroSlide3 from '../assets/images/hero/hero-slide-3.jpg';
+import heroSlide4 from '../assets/images/hero/hero-slide-4.png';
+import heroSlide5 from '../assets/images/hero/hero-slide-5.png';
+import heroSlide6 from '../assets/images/hero/hero-slide-6.jpg';
 import {
   getFeaturedCategories,
   getCategoryBySlug,
@@ -87,65 +97,65 @@ const heroArticle        = featuredArticles[0] ?? latestArticles[0] ?? null;
   style="min-height: clamp(600px, 90vh, 1000px);"
 >
   <!-- Background carousel -->
-  <div class="hero-carousel absolute inset-0 overflow-hidden" aria-hidden="true" data-hero-carousel>
-    <div class="hero-carousel-track absolute inset-0">
-      <img
-        src="/images/hero/spoky-curates-hero.png"
-        alt=""
-        width="1920"
-        height="1080"
-        class="hero-carousel-slide hero-zoom absolute inset-0 w-full h-full object-cover object-center is-active"
-        loading="eager"
-        fetchpriority="high"
-        decoding="async"
-      />
-      <img
-        src="/images/hero/hero-slide-2.jpg"
-        alt=""
-        width="1920"
-        height="1080"
-        class="hero-carousel-slide hero-zoom absolute inset-0 w-full h-full object-cover object-center"
-        loading="lazy"
-        decoding="async"
-      />
-      <img
-        src="/images/hero/hero-slide-3.jpg"
-        alt=""
-        width="1920"
-        height="1080"
-        class="hero-carousel-slide hero-zoom absolute inset-0 w-full h-full object-cover object-center"
-        loading="lazy"
-        decoding="async"
-      />
-      <img
-        src="/images/hero/hero-slide-4.png"
-        alt=""
-        width="1920"
-        height="1080"
-        class="hero-carousel-slide hero-zoom absolute inset-0 w-full h-full object-cover object-center"
-        loading="lazy"
-        decoding="async"
-      />
-      <img
-        src="/images/hero/hero-slide-5.png"
-        alt=""
-        width="1920"
-        height="1080"
-        class="hero-carousel-slide hero-zoom absolute inset-0 w-full h-full object-cover object-center"
-        loading="lazy"
-        decoding="async"
-      />
-      <img
-        src="/images/hero/hero-slide-6.jpg"
-        alt=""
-        width="1920"
-        height="1080"
-        class="hero-carousel-slide hero-zoom absolute inset-0 w-full h-full object-cover object-center"
-        loading="lazy"
-        decoding="async"
-      />
+    <div class="hero-carousel absolute inset-0 overflow-hidden" aria-hidden="true" data-hero-carousel>
+      <div class="hero-carousel-track absolute inset-0">
+        <Image
+          src={heroSlide1}
+          alt=""
+          class="hero-carousel-slide hero-zoom absolute inset-0 w-full h-full object-cover object-center is-active"
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
+          widths={[768, 1280, 1920]}
+          sizes="100vw"
+        />
+        <Image
+          src={heroSlide2}
+          alt=""
+          class="hero-carousel-slide hero-zoom absolute inset-0 w-full h-full object-cover object-center"
+          loading="lazy"
+          decoding="async"
+          widths={[768, 1280, 1920]}
+          sizes="100vw"
+        />
+        <Image
+          src={heroSlide3}
+          alt=""
+          class="hero-carousel-slide hero-zoom absolute inset-0 w-full h-full object-cover object-center"
+          loading="lazy"
+          decoding="async"
+          widths={[768, 1280, 1920]}
+          sizes="100vw"
+        />
+        <Image
+          src={heroSlide4}
+          alt=""
+          class="hero-carousel-slide hero-zoom absolute inset-0 w-full h-full object-cover object-center"
+          loading="lazy"
+          decoding="async"
+          widths={[768, 1280, 1920]}
+          sizes="100vw"
+        />
+        <Image
+          src={heroSlide5}
+          alt=""
+          class="hero-carousel-slide hero-zoom absolute inset-0 w-full h-full object-cover object-center"
+          loading="lazy"
+          decoding="async"
+          widths={[768, 1280, 1920]}
+          sizes="100vw"
+        />
+        <Image
+          src={heroSlide6}
+          alt=""
+          class="hero-carousel-slide hero-zoom absolute inset-0 w-full h-full object-cover object-center"
+          loading="lazy"
+          decoding="async"
+          widths={[768, 1280, 1920]}
+          sizes="100vw"
+        />
+      </div>
     </div>
-  </div>
 
   <!-- Dark scrim -->
   <div
@@ -1619,6 +1629,8 @@ const heroArticle        = featuredArticles[0] ?? latestArticles[0] ?? null;
 )}
 
 <!-- NEWSLETTER -->
+<FAQSection />
+
 <div id="newsletter">
   <NewsletterSection />
 </div>

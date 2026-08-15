@@ -9,6 +9,7 @@ import Breadcrumbs          from '@components/Breadcrumbs.astro';
 import ArticleCard          from '@components/ArticleCard.astro';
 import AffiliateButton      from '@components/AffiliateButton.astro';
 import NewsletterSection    from '@components/NewsletterSection.astro';
+import { Image }            from 'astro:assets';
 import { SITE }             from '@data/site';
 import { getCategoryBySlug }from '@data/categories';
 import { getAuthorById }    from '@data/authors';
@@ -24,6 +25,7 @@ import {
   getRelatedArticles,
   getRelatedProducts
 } from '@utils/relatedContent';
+import { resolveImage }     from '@utils/imageResolver';
 
 import ProductCard from '@components/ProductCard.astro';
 import { getCollection }    from 'astro:content';
@@ -40,10 +42,12 @@ const category  = getCategoryBySlug(data.category);
 const author    = getAuthorById(data.author ?? 'spoky-curates');
 const canonical = buildCanonical(`/articles/${entry.slug}/`);
 
+// Resolve featured image to an optimisable asset (falls back gracefully)
+const featuredImageAsset = resolveImage(data.featuredImage);
+
 // Reading time from rendered body
-const { Content, remarkPluginFrontmatter } = await entry.render();
-const bodyText    = remarkPluginFrontmatter?.rawContent ?? '';
-const readingTime = getReadingTime(bodyText);
+const { Content } = await entry.render();
+const readingTime = getReadingTime(entry.body);
 
 // Related articles
 const allArticles = await getCollection('articles', (a) => !a.data.draft);
@@ -160,15 +164,27 @@ const breadcrumbSchema = buildBreadcrumbSchema([
     <!-- ── Featured image ────────────────────────────────── -->
     {data.featuredImage && (
       <div class="max-w-4xl mx-auto mb-12 rounded-2xl overflow-hidden aspect-video bg-slate-100">
-        <img
-          src={data.featuredImage}
-          alt={data.featuredImageAlt || data.title}
-          width="1200"
-          height="675"
-          class="w-full h-full object-cover"
-          loading="eager"
-          fetchpriority="high"
-        />
+        {featuredImageAsset ? (
+          <Image
+            src={featuredImageAsset}
+            alt={data.featuredImageAlt || data.title}
+            widths={[600, 900, 1200]}
+            sizes="(max-width: 768px) 100vw, (max-width: 1280px) 896px, 1200px"
+            class="w-full h-full object-cover"
+            loading="eager"
+            fetchpriority="high"
+          />
+        ) : (
+          <img
+            src={data.featuredImage}
+            alt={data.featuredImageAlt || data.title}
+            width="1200"
+            height="675"
+            class="w-full h-full object-cover"
+            loading="eager"
+            fetchpriority="high"
+          />
+        )}
       </div>
     )}
 
