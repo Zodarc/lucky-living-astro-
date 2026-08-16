@@ -1,6 +1,8 @@
 import { defineConfig } from 'astro/config';
+import vercel from '@astrojs/vercel/serverless';
 import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
+import keystatic from '@keystatic/astro';
 
 export default defineConfig({
   site: 'https://spokycurates.com',
@@ -16,9 +18,11 @@ export default defineConfig({
         !page.includes('/404') &&
         !page.includes('/500'),
     }),
+    keystatic(),
   ],
 
-  output: 'static',
+  output: 'hybrid',
+  adapter: vercel(),
 
   trailingSlash: 'always',
 
@@ -27,8 +31,8 @@ export default defineConfig({
       tailwindcss(),
     ],
     server: {
-  allowedHosts: true,
-      }
+      allowedHosts: true,
+    },
   },
 
   markdown: {

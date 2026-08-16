@@ -1,0 +1,144 @@
+{
+	"version": 3,
+	"routes": [
+		{
+			"src": "/keystatic(?:\\/(.*?))?",
+			"headers": {
+				"Location": "/keystatic/$1/"
+			},
+			"status": 308
+		},
+		{
+			"src": "/404",
+			"headers": {
+				"Location": "/404/"
+			},
+			"status": 308
+		},
+		{
+			"src": "/about",
+			"headers": {
+				"Location": "/about/"
+			},
+			"status": 308
+		},
+		{
+			"src": "/affiliate-disclosure",
+			"headers": {
+				"Location": "/affiliate-disclosure/"
+			},
+			"status": 308
+		},
+		{
+			"src": "/articles/([^/]+?)",
+			"headers": {
+				"Location": "/articles/$1/"
+			},
+			"status": 308
+		},
+		{
+			"src": "/articles(?:\\/(.*?))?",
+			"headers": {
+				"Location": "/articles/$1/"
+			},
+			"status": 308
+		},
+		{
+			"src": "/category/([^/]+?)",
+			"headers": {
+				"Location": "/category/$1/"
+			},
+			"status": 308
+		},
+		{
+			"src": "/category/([^/]+?)(?:\\/(.*?))?",
+			"headers": {
+				"Location": "/category/$1/$2/"
+			},
+			"status": 308
+		},
+		{
+			"src": "/compare/([^/]+?)",
+			"headers": {
+				"Location": "/compare/$1/"
+			},
+			"status": 308
+		},
+		{
+			"src": "/compare",
+			"headers": {
+				"Location": "/compare/"
+			},
+			"status": 308
+		},
+		{
+			"src": "/contact",
+			"headers": {
+				"Location": "/contact/"
+			},
+			"status": 308
+		},
+		{
+			"src": "/contact-success",
+			"headers": {
+				"Location": "/contact-success/"
+			},
+			"status": 308
+		},
+		{
+			"src": "/privacy-policy",
+			"headers": {
+				"Location": "/privacy-policy/"
+			},
+			"status": 308
+		},
+		{
+			"src": "/reviews/([^/]+?)",
+			"headers": {
+				"Location": "/reviews/$1/"
+			},
+			"status": 308
+		},
+		{
+			"src": "/reviews",
+			"headers": {
+				"Location": "/reviews/"
+			},
+			"status": 308
+		},
+		{
+			"src": "/search",
+			"headers": {
+				"Location": "/search/"
+			},
+			"status": 308
+		},
+		{
+			"src": "^/_astro/(.*)$",
+			"headers": {
+				"cache-control": "public, max-age=31536000, immutable"
+			},
+			"continue": true
+		},
+		{
+			"handle": "filesystem"
+		},
+		{
+			"src": "^\\/_image$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/api\\/keystatic(?:\\/(.*?))?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/keystatic(?:\\/(.*?))?\\/$",
+			"dest": "_render"
+		},
+		{
+			"src": "/.*",
+			"dest": "/404.html",
+			"status": 404
+		}
+	]
+}
