@@ -1,7 +1,7 @@
 ---
 title: CMS Test Article
 description: Temporary test article for the Spoky Curates CMS.
-featuredImage: /images/uploads/logo-1-primary.png
+featuredImage: /images/uploads/google-nest-audio.jpg
 featuredImageAlt: ""
 category: tech-life
 author: Spoky Curates
