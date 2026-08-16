@@ -2,6 +2,7 @@ import { defineConfig } from 'astro/config';
 import vercel from '@astrojs/vercel/serverless';
 import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
+import react from '@astrojs/react';
 import keystatic from '@keystatic/astro';
 
 export default defineConfig({
@@ -13,14 +14,14 @@ export default defineConfig({
   },
 
   integrations: [
-    sitemap({
-      filter: (page) =>
-        !page.includes('/404') &&
-        !page.includes('/500'),
-    }),
-    keystatic(),
-  ],
-
+  sitemap({
+    filter: (page) =>
+      !page.includes('/404') &&
+      !page.includes('/500'),
+  }),
+  react(),
+  keystatic(),
+],
   output: 'hybrid',
   adapter: vercel(),
 
