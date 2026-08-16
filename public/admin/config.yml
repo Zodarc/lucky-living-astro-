@@ -1,0 +1,367 @@
+﻿backend:
+  name: github
+  repo: Zodarc/lucky-living-astro-
+  branch: main
+
+media_folder: public/images/uploads
+public_folder: /images/uploads
+
+collections:
+
+  - name: articles
+    label: Articles
+    label_singular: Article
+    folder: src/content/articles
+    create: true
+    extension: md
+    format: frontmatter
+    slug: "{{slug}}"
+
+    fields:
+      - label: Title
+        name: title
+        widget: string
+
+      - label: Description
+        name: description
+        widget: text
+
+      - label: Featured Image
+        name: featuredImage
+        widget: image
+        required: false
+        default: /images/brand/og-default.jpg
+
+      - label: Featured Image Alt
+        name: featuredImageAlt
+        widget: string
+        required: false
+        default: ""
+
+      - label: Category
+        name: category
+        widget: select
+        options:
+          - smart-home
+          - tech-life
+          - home-design
+          - wellness
+          - style
+          - reviews
+          - deals
+
+      - label: Tags
+        name: tags
+        widget: list
+        required: false
+
+      - label: Author
+        name: author
+        widget: string
+        default: Spoky Curates
+        required: false
+
+      - label: Publish Date
+        name: publishDate
+        widget: datetime
+        format: YYYY-MM-DD
+        time_format: false
+
+      - label: Updated Date
+        name: updatedDate
+        widget: datetime
+        format: YYYY-MM-DD
+        time_format: false
+        required: false
+
+      - label: SEO Title
+        name: seoTitle
+        widget: string
+        required: false
+
+      - label: SEO Description
+        name: seoDescription
+        widget: text
+        required: false
+
+      - label: Keywords
+        name: keywords
+        widget: list
+        required: false
+
+      - label: Affiliate Links
+        name: affiliateLinks
+        widget: list
+        required: false
+        fields:
+          - label: Label
+            name: label
+            widget: string
+          - label: URL
+            name: url
+            widget: string
+
+      - label: Related Articles
+        name: relatedArticles
+        widget: list
+        required: false
+
+      - label: Draft
+        name: draft
+        widget: boolean
+        default: false
+        required: false
+
+      - label: Featured
+        name: featured
+        widget: boolean
+        default: false
+        required: false
+
+      - label: Body
+        name: body
+        widget: markdown
+
+
+  - name: products
+    label: Products
+    label_singular: Product
+    folder: src/content/products
+    create: true
+    extension: md
+    format: frontmatter
+    slug: "{{slug}}"
+
+    fields:
+      - label: Product Name
+        name: name
+        widget: string
+
+      - label: Description
+        name: description
+        widget: text
+
+      - label: Main Image
+        name: image
+        widget: image
+        required: false
+        default: /images/brand/og-default.jpg
+
+      - label: Image Alt
+        name: imageAlt
+        widget: string
+        required: false
+        default: ""
+
+      - label: Gallery
+        name: gallery
+        widget: list
+        field:
+          label: Image
+          name: image
+          widget: image
+        required: false
+
+      - label: Video URL
+        name: videoUrl
+        widget: string
+        required: false
+
+      - label: Category
+        name: category
+        widget: select
+        options:
+          - smart-home
+          - tech-life
+          - home-design
+          - wellness
+          - style
+          - reviews
+          - deals
+
+      - label: Affiliate URL
+        name: affiliateUrl
+        widget: string
+
+      - label: Affiliate Label
+        name: affiliateLabel
+        widget: string
+        default: Check Price on Amazon
+        required: false
+
+      - label: Price Display
+        name: priceDisplay
+        widget: string
+        required: false
+
+      - label: Price Last Verified
+        name: priceLastVerified
+        widget: datetime
+        format: YYYY-MM-DD
+        time_format: false
+        required: false
+
+      - label: Rating
+        name: rating
+        widget: number
+        min: 0
+        max: 5
+        step: 0.1
+        required: false
+
+      - label: Verdict
+        name: verdict
+        widget: text
+        required: false
+
+      - label: Best For
+        name: bestFor
+        widget: list
+        required: false
+
+      - label: Pros
+        name: pros
+        widget: list
+        required: false
+
+      - label: Cons
+        name: cons
+        widget: list
+        required: false
+
+      - label: Features
+        name: features
+        widget: list
+        required: false
+
+      - label: Specs
+        name: specs
+        widget: code
+        required: false
+        hint: "Advanced field. Keep this as a YAML object matching the Astro product schema."
+
+      - label: Related Products
+        name: relatedProducts
+        widget: list
+        required: false
+
+      - label: SEO Title
+        name: seoTitle
+        widget: string
+        required: false
+
+      - label: SEO Description
+        name: seoDescription
+        widget: text
+        required: false
+
+      - label: Keywords
+        name: keywords
+        widget: list
+        required: false
+
+      - label: Author
+        name: author
+        widget: string
+        default: Spoky Curates
+        required: false
+
+      - label: Publish Date
+        name: publishDate
+        widget: datetime
+        format: YYYY-MM-DD
+        time_format: false
+
+      - label: Updated Date
+        name: updatedDate
+        widget: datetime
+        format: YYYY-MM-DD
+        time_format: false
+        required: false
+
+      - label: Draft
+        name: draft
+        widget: boolean
+        default: false
+        required: false
+
+      - label: Featured
+        name: featured
+        widget: boolean
+        default: false
+        required: false
+
+      - label: Body
+        name: body
+        widget: markdown
+
+
+  - name: comparisons
+    label: Comparisons
+    label_singular: Comparison
+    folder: src/content/comparisons
+    create: true
+    extension: md
+    format: frontmatter
+    slug: "{{slug}}"
+
+    fields:
+      - label: Title
+        name: title
+        widget: string
+
+      - label: Description
+        name: description
+        widget: text
+
+      - label: Product A
+        name: productA
+        widget: string
+
+      - label: Product B
+        name: productB
+        widget: string
+
+      - label: Publish Date
+        name: publishDate
+        widget: datetime
+        format: YYYY-MM-DD
+        time_format: false
+
+      - label: Updated Date
+        name: updatedDate
+        widget: datetime
+        format: YYYY-MM-DD
+        time_format: false
+        required: false
+
+      - label: SEO Title
+        name: seoTitle
+        widget: string
+        required: false
+
+      - label: SEO Description
+        name: seoDescription
+        widget: text
+        required: false
+
+      - label: Keywords
+        name: keywords
+        widget: list
+        required: false
+
+      - label: Draft
+        name: draft
+        widget: boolean
+        default: false
+        required: false
+
+      - label: Featured
+        name: featured
+        widget: boolean
+        default: false
+        required: false
+
+      - label: Body
+        name: body
+        widget: markdown

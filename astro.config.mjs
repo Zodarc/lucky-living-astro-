@@ -20,7 +20,7 @@ export default defineConfig({
 
   output: 'static',
 
-  trailingSlash: 'always',
+  trailingSlash: 'ignore',
 
   vite: {
     plugins: [
