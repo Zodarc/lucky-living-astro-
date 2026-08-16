@@ -1,34 +1,36 @@
 ---
-title: "The 10 Best Smart Home Devices of 2026"
-description: "We tested the top smart home gadgets of the year — from voice assistants to smart lighting — and ranked the ones actually worth buying."
-featuredImage: "/images/articles/best-smart-home-devices-2025.png"
-featuredImageAlt: "A modern living room with smart home devices on a shelf"
-category: "smart-home"
+title: The 10 Best Smart Home Devices of 2026
+description: We tested the top smart home gadgets of the year — from voice
+  assistants to smart lighting — and ranked the ones actually worth buying now.
+featuredImage: /images/articles/best-smart-home-devices-2025.png
+featuredImageAlt: A modern living room with smart home devices on a shelf
+category: smart-home
 tags:
   - smart home
   - buying guide
   - smart speakers
   - smart lighting
   - home automation
-author: "Spoky Curates"
+author: Spoky Curates
 publishDate: 2026-07-21
-seoTitle: "10 Best Smart Home Devices of 2026 — Tested & Ranked | Spoky Curates"
-seoDescription: "We tested the top smart home gadgets of 2026. Here are the 10 best smart home devices worth buying this year, from starters to upgrades."
+seoTitle: 10 Best Smart Home Devices of 2026 — Tested & Ranked | Spoky Curates
+seoDescription: We tested the top smart home gadgets of 2026. Here are the 10
+  best smart home devices worth buying this year, from starters to upgrades.
 keywords:
   - best smart home devices 2026
   - smart home gadgets
   - smart home buying guide
 affiliateLinks:
-  - label: "Amazon Echo (4th Gen) — Check Price"
-    url: "https://amzn.to/4fqVXZe"
-  - label: "Philips Hue Starter Kit — Check Price"
-    url: "https://amzn.to/4w7KHaN"
-  - label: "Google Nest Audio — Check Price"
-    url: "https://amzn.to/3RLbR91"
+  - label: Amazon Echo (4th Gen) — Check Price
+    url: https://amzn.to/4fqVXZe
+  - label: Philips Hue Starter Kit — Check Price
+    url: https://amzn.to/4w7KHaN
+  - label: Google Nest Audio — Check Price
+    url: https://amzn.to/3RLbR91
 relatedArticles:
   - best-smart-speakers-2026
-featured: true
 draft: false
+featured: true
 ---
 
 Building a smart home doesn't have to be complicated or expensive. Whether you're just getting started or looking to add to an existing setup, the devices below are the ones we keep recommending — and the ones we use ourselves.
