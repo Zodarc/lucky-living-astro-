@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# Block build artifacts
+Disallow: /_astro/
+
+Sitemap: https://spokycurates.com/sitemap-index.xml
