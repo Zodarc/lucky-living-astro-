@@ -6,7 +6,10 @@ export const SITE = {
   name:        'Spoky Curates',
   tagline:     'Smarter Products. Better Life.',
   description: 'Discover smarter products, honest reviews, and lifestyle upgrades. Spoky Curates covers smart home, tech, wellness, style, and the best deals online.',
-  url:         'https://spokycurates.com/',
+  // Kept in sync with astro.config.mjs's SITE_URL — override both together
+  // via the SITE_URL env var for staging/preview deployments. This site is
+  // fully static, so `process.env` is safe to read here at build time.
+  url:         (process.env.SITE_URL ?? 'https://spokycurates.com') + '/',
   language:    'en',
   locale:      'en_US',
 
