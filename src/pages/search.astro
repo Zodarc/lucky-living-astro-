@@ -43,91 +43,107 @@ aria-label="Search articles and reviews"
 
 
 <script>
-
-const input = document.querySelector("#searchBox");
-const results = document.querySelector("#results");
-const status  = document.querySelector("#search-status");
-
-
-let items = [];
-
-
-fetch("/search.json")
-.then(res => res.json())
-.then(data => {
-  items = data;
-});
-
-
-input.addEventListener("input", () => {
-
-const query = input.value.toLowerCase().trim();
-
-
-if(!query){
-  results.innerHTML="";
-  status.textContent = "";
-  return;
+interface SearchItem {
+  title: string;
+  description: string;
+  category: string;
+  tags?: string[];
+  type: string;
+  url: string;
 }
 
+const input = document.querySelector<HTMLInputElement>("#searchBox");
+const results = document.querySelector<HTMLDivElement>("#results");
+const status = document.querySelector<HTMLParagraphElement>("#search-status");
 
-const matches = items.filter(item => {
+if (input && results && status) {
+  let items: SearchItem[] = [];
+  let loadError = false;
+  let debounceTimer: ReturnType<typeof setTimeout> | undefined;
 
-const text = [
- item.title,
- item.description,
- item.category,
- ...(item.tags || [])
-]
-.join(" ")
-.toLowerCase();
-
-
-return text.includes(query);
-
-});
-
-
-results.innerHTML = "";
-
-if (!matches.length) {
-  status.textContent = "No results found.";
-  const empty = document.createElement("p");
-  empty.className = "text-slate-500";
-  empty.textContent = "No results found.";
-  results.appendChild(empty);
-} else {
-  status.textContent = `${matches.length} ${matches.length === 1 ? 'result' : 'results'} found.`;
-  for (const item of matches) {
-    // <a>
-    const a = document.createElement("a");
-    a.href = item.url;
-    a.className = "block rounded-xl border border-slate-200 p-5 hover:bg-slate-50";
-
-    // <h2>
-    const h2 = document.createElement("h2");
-    h2.className = "font-bold text-lg";
-    h2.textContent = item.title;
-
-    // <p> meta line
-    const meta = document.createElement("p");
-    meta.className = "text-sm text-slate-500";
-    meta.textContent = `${item.type} · ${item.category}`;
-
-    // <p> description
-    const desc = document.createElement("p");
-    desc.className = "mt-2 text-slate-600";
-    desc.textContent = item.description;
-
-    a.appendChild(h2);
-    a.appendChild(meta);
-    a.appendChild(desc);
-    results.appendChild(a);
+  function renderMessage(container: HTMLDivElement, statusEl: HTMLParagraphElement, message: string) {
+    statusEl.textContent = message;
+    container.replaceChildren();
+    const p = document.createElement("p");
+    p.className = "text-slate-500";
+    p.textContent = message;
+    container.appendChild(p);
   }
+
+  fetch("/search.json")
+    .then((res) => {
+      if (!res.ok) throw new Error(`Search index request failed (${res.status})`);
+      return res.json();
+    })
+    .then((data: SearchItem[]) => {
+      items = data;
+    })
+    .catch((err) => {
+      loadError = true;
+      console.error("Failed to load search index:", err);
+    });
+
+  function runSearch() {
+    if (!input || !results || !status) return;
+
+    const query = input.value.toLowerCase().trim();
+
+    if (!query) {
+      results.replaceChildren();
+      status.textContent = "";
+      return;
+    }
+
+    if (loadError) {
+      renderMessage(results, status, "Search is temporarily unavailable. Please try again later.");
+      return;
+    }
+
+    const matches = items.filter((item) => {
+      const text = [item.title, item.description, item.category, ...(item.tags ?? [])]
+        .join(" ")
+        .toLowerCase();
+      return text.includes(query);
+    });
+
+    results.replaceChildren();
+
+    if (!matches.length) {
+      renderMessage(results, status, "No results found.");
+      return;
+    }
+
+    status.textContent = `${matches.length} ${matches.length === 1 ? "result" : "results"} found.`;
+
+    const fragment = document.createDocumentFragment();
+    for (const item of matches) {
+      const a = document.createElement("a");
+      a.href = item.url;
+      a.className = "block rounded-xl border border-slate-200 p-5 hover:bg-slate-50";
+
+      const h2 = document.createElement("h2");
+      h2.className = "font-bold text-lg";
+      h2.textContent = item.title;
+
+      const meta = document.createElement("p");
+      meta.className = "text-sm text-slate-500";
+      meta.textContent = `${item.type} · ${item.category}`;
+
+      const desc = document.createElement("p");
+      desc.className = "mt-2 text-slate-600";
+      desc.textContent = item.description;
+
+      a.append(h2, meta, desc);
+      fragment.appendChild(a);
+    }
+    results.appendChild(fragment);
+  }
+
+  input.addEventListener("input", () => {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(runSearch, 150);
+  });
 }
-
-});
-
 </script>
 
 

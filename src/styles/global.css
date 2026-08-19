@@ -928,11 +928,13 @@
     border-radius: 0 0.5rem 0.5rem 0;
   }
 
-  .prose :where(blockquote p:first-of-type::before) {
+  /* Pseudo-elements are invalid inside :where(), so these are scoped directly
+     rather than through the :where() wrapper used elsewhere in this block. */
+  .prose blockquote p:first-of-type::before {
     content: none;
   }
 
-  .prose :where(blockquote p:last-of-type::after) {
+  .prose blockquote p:last-of-type::after {
     content: none;
   }
 

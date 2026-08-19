@@ -11,7 +11,6 @@
  *   6. Editor picks  — featured articles
  *   7. Newsletter    — full-width signup
  */
-import SectionHeader from '@components/SectionHeader.astro';
 import BaseLayout          from '@layouts/BaseLayout.astro';
 import { isPublished } from '@utils/publishing';
 import ArticleCard         from '@components/ArticleCard.astro';
@@ -72,7 +71,10 @@ const topProducts = allProducts
   .slice(0, 4);
 
 const recentlyVerifiedProducts = allProducts
-  .filter((product) => product.data.priceDisplay && product.data.priceLastVerified)
+  .filter(
+    (product): product is typeof product & { data: { priceLastVerified: Date } } =>
+      Boolean(product.data.priceDisplay && product.data.priceLastVerified)
+  )
   .sort(
     (a, b) =>
       b.data.priceLastVerified.getTime() - a.data.priceLastVerified.getTime()
@@ -80,6 +82,13 @@ const recentlyVerifiedProducts = allProducts
   .slice(0, 6);
 
 const featuredCategories = getFeaturedCategories();
+
+// Real per-category counts, derived from published content — not a static field.
+const categoryArticleCounts = new Map<string, number>();
+for (const article of allArticles) {
+  const slug = article.data.category;
+  categoryArticleCounts.set(slug, (categoryArticleCounts.get(slug) ?? 0) + 1);
+}
 const websiteSchema      = buildWebsiteSchema();
 const canonical          = buildCanonical('/');
 const heroArticle        = featuredArticles[0] ?? latestArticles[0] ?? null;
@@ -651,9 +660,9 @@ const heroArticle        = featuredArticles[0] ?? latestArticles[0] ?? null;
                   {cat.name}
                 </span>
                 <!-- Article count — shown when > 0 -->
-                {(cat.articleCount ?? 0) > 0 && (
+                {(categoryArticleCounts.get(cat.slug) ?? 0) > 0 && (
                   <span class="text-[10px] font-medium" style="color: rgb(255 255 255 / 0.45);">
-                    {cat.articleCount} articles
+                    {categoryArticleCounts.get(cat.slug)} articles
                   </span>
                 )}
               </div>
@@ -1658,7 +1667,7 @@ const heroArticle        = featuredArticles[0] ?? latestArticles[0] ?? null;
 
     let activeIndex = 0;
 
-    const showSlide = (index) => {
+    const showSlide = (index: number) => {
       slides.forEach((slide, slideIndex) => {
         slide.classList.toggle('is-active', slideIndex === index);
       });
@@ -2104,4 +2113,3 @@ const heroArticle        = featuredArticles[0] ?? latestArticles[0] ?? null;
   }
 
 </style>
-
