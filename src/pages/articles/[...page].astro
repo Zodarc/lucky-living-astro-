@@ -11,6 +11,7 @@
  * / page.url.next automatically.
  */
 import BaseLayout        from '@layouts/BaseLayout.astro';
+import { isPublished } from '@utils/publishing';
 import ArticleCard       from '@components/ArticleCard.astro';
 import NewsletterSection from '@components/NewsletterSection.astro';
 import { buildCanonical } from '@utils/seo';
@@ -19,7 +20,7 @@ import { SITE }           from '@data/site';
 import type { GetStaticPathsOptions } from 'astro';
 
 export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
-  const articles = (await getCollection('articles', (e) => !e.data.draft))
+  const articles = (await getCollection('articles', isPublished))
     .sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime());
 
   return paginate(articles, { pageSize: 9 });

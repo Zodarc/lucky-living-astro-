@@ -4,11 +4,12 @@
  * Uses @astrojs/rss.
  */
 import rss         from '@astrojs/rss';
+import { isPublished } from '@utils/publishing';
 import { getCollection } from 'astro:content';
 import { SITE }    from '../data/site.ts';
 
 export async function GET(context) {
-  const articles = await getCollection('articles', (e) => !e.data.draft);
+  const articles = await getCollection('articles', isPublished);
 
   // Sort by publish date, newest first
   const sorted = articles.sort(

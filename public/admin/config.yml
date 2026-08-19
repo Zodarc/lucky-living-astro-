@@ -66,8 +66,10 @@ collections:
       - label: Publish Date
         name: publishDate
         widget: datetime
-        format: YYYY-MM-DD
-        time_format: false
+        format: YYYY-MM-DDTHH:mm:ssZ
+        picker_utc: false
+        default: ""
+       
 
       - label: Updated Date
         name: updatedDate

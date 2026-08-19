@@ -1,11 +1,9 @@
 import { getCollection } from 'astro:content';
+import { isPublished } from '@utils/publishing';
 
 export async function GET() {
 
-  const articles = await getCollection(
-    'articles',
-    (entry) => !entry.data.draft
-  );
+  const articles = await getCollection('articles', isPublished);
 
   const products = await getCollection(
     'products',
