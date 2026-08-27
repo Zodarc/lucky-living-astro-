@@ -27,6 +27,8 @@ const getImageMimeType = (imagePath) => {
       return 'image/gif';
     case 'avif':
       return 'image/avif';
+    case 'jpg':
+    case 'jpeg':
     default:
       return 'image/jpeg';
   }
@@ -53,6 +55,7 @@ export async function GET(context) {
           entry.data.featuredImage,
           siteUrl
         ).toString(),
+        length: 0,
         type: getImageMimeType(entry.data.featuredImage),
       },
       categories: [
@@ -74,6 +77,7 @@ export async function GET(context) {
           entry.data.image,
           siteUrl
         ).toString(),
+        length: 0,
         type: getImageMimeType(entry.data.image),
       },
       categories: [
