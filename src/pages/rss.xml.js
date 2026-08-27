@@ -1,33 +1,65 @@
-/**
- * rss.xml.js — RSS Feed
- * Generates /rss.xml at build time from published articles.
- * Uses @astrojs/rss.
- */
-import rss         from '@astrojs/rss';
-import { isPublished } from '@utils/publishing';
+import rss from '@astrojs/rss';
 import { getCollection } from 'astro:content';
-import { SITE }    from '../data/site.ts';
+import { isPublished } from '@utils/publishing';
+import { SITE } from '../data/site.ts';
 
 export async function GET(context) {
-  const articles = await getCollection('articles', isPublished);
+  const [articles, reviews, comparisons] = await Promise.all([
+    getCollection('articles', isPublished),
+    getCollection('products', isPublished),
+    getCollection('comparisons', isPublished),
+  ]);
 
-  // Sort by publish date, newest first
-  const sorted = articles.sort(
-    (a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime()
+  const items = [
+    ...articles.map((entry) => ({
+      title: entry.data.title,
+      description: entry.data.description,
+      pubDate: entry.data.publishDate,
+      link: `/articles/${entry.slug}/`,
+      categories: [
+        'article',
+        entry.data.category,
+        ...(entry.data.tags ?? []),
+      ],
+      author: entry.data.author ?? SITE.name,
+    })),
+
+    ...reviews.map((entry) => ({
+      title: entry.data.title,
+      description: entry.data.description,
+      pubDate: entry.data.publishDate,
+      link: `/reviews/${entry.slug}/`,
+      categories: [
+        'product-review',
+        entry.data.category,
+        ...(entry.data.tags ?? []),
+      ],
+      author: entry.data.author ?? SITE.name,
+    })),
+
+    ...comparisons.map((entry) => ({
+      title: entry.data.title,
+      description: entry.data.description,
+      pubDate: entry.data.publishDate,
+      link: `/compare/${entry.slug}/`,
+      categories: [
+        'comparison',
+        entry.data.category,
+        ...(entry.data.tags ?? []),
+      ],
+      author: entry.data.author ?? SITE.name,
+    })),
+  ];
+
+  const sorted = items.sort(
+    (a, b) => b.pubDate.getTime() - a.pubDate.getTime()
   );
 
   return rss({
-    title:       SITE.name,
+    title: SITE.name,
     description: SITE.description,
-    site:        context.site ?? SITE.url,
-    items: sorted.map((article) => ({
-      title:       article.data.title,
-      description: article.data.description,
-      pubDate:     article.data.publishDate,
-      link:        `/articles/${article.slug}/`,
-      categories:  [article.data.category, ...(article.data.tags ?? [])],
-      author:      article.data.author ?? SITE.name,
-    })),
+    site: context.site ?? SITE.url,
+    items: sorted,
     customData: `<language>${SITE.language}</language>`,
     stylesheet: false,
   });
