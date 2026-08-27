@@ -40,7 +40,7 @@ affiliateLinks:
     url: https://amzn.to/4qC9wtY
 relatedArticles:
   - Best Smart Bulbs for Renters (No Hub Required)
-draft: true
+draft: false
 featured: true
 ---
 If you have ever looked at the smart home aisle and felt instantly overwhelmed by talk of mesh hubs, wiring diagrams, and competing wireless protocols, you are not alone. It is easy to get the impression that making your home "smart" requires rewiring your walls or spending thousands of dollars on complex equipment.
