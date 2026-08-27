@@ -20,6 +20,10 @@ import FAQSection          from '@components/FAQSection.astro';
 import { Image }           from 'astro:assets';
 import { SITE }            from '@data/site';
 
+// Hero-specific CSS — only loaded on homepage to avoid bundling
+// these animations on product/article detail pages
+import '@styles/hero.css';
+
 // Hero carousel — statically imported so Astro can optimise + generate WebP
 import heroSlide1 from '../assets/images/hero/spoky-curates-hero.png';
 import heroSlide2 from '../assets/images/hero/hero-slide-2.jpg';
