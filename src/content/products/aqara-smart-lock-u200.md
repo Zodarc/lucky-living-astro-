@@ -1,151 +1,77 @@
 ---
-
 name: "Aqara Smart Lock U200"
-
 description: "A versatile retrofit smart lock featuring Apple Home Key, fingerprint recognition, NFC, passcodes, Matter over Thread, and multiple unlocking methods."
-
 image: "/images/products/aqara-smart-lock-u200.jpg"
-
 imageAlt: "Aqara Smart Lock U200 smart lock"
-
 gallery:
-
-- "/images/products/aqara-smart-lock-u200.jpg"
-
+  - "/images/products/aqara-smart-lock-u200.jpg"
 category: "smart-home"
-
 affiliateUrl: "https://amzn.to/4iFWCZZ"
-
 affiliateLabel: "Check Price on Amazon"
-
 priceDisplay: "$169.99"
-
 priceLastVerified: "2026-09-01"
-
 rating: 4.4
-
 verdict: "The Aqara Smart Lock U200 is a highly versatile smart lock whose Apple Home Key, fingerprint recognition, NFC access, retrofit design, and Matter over Thread support make it particularly appealing to Apple Home and smart-home users. However, compatibility requirements and ecosystem dependencies mean it is not the ideal choice for every door or household."
-
 bestFor:
-
-- "Apple Home users"
-
-- "Users who want Apple Home Key"
-
-- "Families wanting multiple unlocking methods"
-
-- "Users looking for a retrofit smart lock"
-
-- "Matter smart-home users"
-
+  - "Apple Home users"
+  - "Users who want Apple Home Key"
+  - "Families wanting multiple unlocking methods"
+  - "Users looking for a retrofit smart lock"
+  - "Matter smart-home users"
 pros:
-
-- "Apple Home Key support"
-
-- "Fingerprint recognition"
-
-- "NFC unlocking"
-
-- "Multiple access methods"
-
-- "Matter over Thread support"
-
-- "Retrofit-oriented installation"
-
-- "No subscription required for core functionality"
-
+  - "Apple Home Key support"
+  - "Fingerprint recognition"
+  - "NFC unlocking"
+  - "Multiple access methods"
+  - "Matter over Thread support"
+  - "Retrofit-oriented installation"
+  - "No subscription required for core functionality"
 cons:
-
-- "Door compatibility must be checked carefully"
-
-- "Some advanced features depend on compatible smart-home hardware"
-
-- "Thread infrastructure may be required for Matter functionality"
-
-- "No palm-vein recognition"
-
-- "Battery and ecosystem behavior can vary by setup"
-
+  - "Door compatibility must be checked carefully"
+  - "Some advanced features depend on compatible smart-home hardware"
+  - "Thread infrastructure may be required for Matter functionality"
+  - "No palm-vein recognition"
+  - "Battery and ecosystem behavior can vary by setup"
 features:
-
-- "Apple Home Key"
-
-- "Fingerprint recognition"
-
-- "PIN keypad"
-
-- "NFC access"
-
-- "Aqara app access"
-
-- "Physical key access"
-
-- "Matter over Thread"
-
-- "Bluetooth"
-
-- "Retrofit installation"
-
-- "Automatic locking"
-
-- "Door-state detection"
-
+  - "Apple Home Key"
+  - "Fingerprint recognition"
+  - "PIN keypad"
+  - "NFC access"
+  - "Aqara app access"
+  - "Physical key access"
+  - "Matter over Thread"
+  - "Bluetooth"
+  - "Retrofit installation"
+  - "Automatic locking"
+  - "Door-state detection"
 specs:
-
-Model: "U200"
-
-Unlock Methods: "Apple Home Key, fingerprint, PIN, NFC, app, physical key"
-
-Connectivity: "Thread, Bluetooth, NFC"
-
-Smart Home Platforms: "Apple Home, Google Home, Amazon Alexa, Samsung SmartThings via Matter"
-
-Apple Home Key: "Supported"
-
-Main Battery: "Rechargeable battery"
-
-Connectivity Protocol: "Matter over Thread"
-
-Installation: "Retrofit"
-
-Door Position Sensor: "Gyroscope-based door-state detection"
-
-Subscription: "None required for core functionality"
-
+  Model: "U200"
+  Unlock Methods: "Apple Home Key, fingerprint, PIN, NFC, app, physical key"
+  Connectivity: "Thread, Bluetooth, NFC"
+  Smart Home Platforms: "Apple Home, Google Home, Amazon Alexa, Samsung SmartThings via Matter"
+  Apple Home Key: "Supported"
+  Main Battery: "Rechargeable battery"
+  Connectivity Protocol: "Matter over Thread"
+  Installation: "Retrofit"
+  Door Position Sensor: "Gyroscope-based door-state detection"
+  Subscription: "None required for core functionality"
 relatedProducts:
-
-- "eufy-familock-e34"
-
+  - "eufy-familock-e34"
 seoTitle: "Aqara Smart Lock U200 Review 2026 — Is Apple Home Key Worth It? | Spoky Curates"
-
 seoDescription: "Our full Aqara Smart Lock U200 review examines Apple Home Key, fingerprint access, Matter over Thread, installation, security, compatibility, and value."
-
 keywords:
-
-- "Aqara Smart Lock U200 review"
-
-- "Aqara U200 review"
-
-- "Aqara U200 Apple Home Key"
-
-- "Aqara smart lock"
-
-- "Matter smart lock"
-
-- "Apple Home Key smart lock"
-
-- "best smart lock for Apple Home"
-
+  - "Aqara Smart Lock U200 review"
+  - "Aqara U200 review"
+  - "Aqara U200 Apple Home Key"
+  - "Aqara smart lock"
+  - "Matter smart lock"
+  - "Apple Home Key smart lock"
+  - "best smart lock for Apple Home"
 author: "Spoky Curates"
-
 publishDate: 2026-09-01
-
 updatedDate: 2026-09-01
-
 featured: false
-
 draft: false
-
 ---
 
 The Aqara Smart Lock U200 takes a flexible approach to smart-lock convenience. Instead of relying on one unusual biometric technology, it combines Apple Home Key, fingerprint recognition, NFC access, passcodes, smartphone control, physical keys, and Matter over Thread support in one retrofit-oriented package.
@@ -158,7 +84,7 @@ The more important question is whether the U200's combination of Apple Home Key,
 
 > **Spoky Curates testing note:** This is an evidence-based review based on manufacturer documentation and independent user feedback. We have not physically tested the U200, so manufacturer specifications and performance claims are not presented as our own hands-on test results.
 
-**## Quick Verdict**
+## Quick Verdict
 
 The Aqara Smart Lock U200 is a **very good smart lock for Apple Home users and buyers who want multiple ways to unlock their door**.
 
@@ -206,7 +132,7 @@ Instead of relying exclusively on fingerprints, passcodes, or a smartphone app, 
 
 For households with several users, having multiple authentication options can make access management more flexible.
 
-**## Matter and Thread**
+## Matter and Thread
 
 The U200 supports Matter over Thread.
 
