@@ -1,24 +1,21 @@
 ---
-
 title: "eufy FamiLock E34 vs Aqara U200: Which Smart Lock Is Better?"
 description: "A detailed comparison of the eufy FamiLock E34 and Aqara U200, covering unlocking methods, Matter, Apple Home Key, battery, installation, security, and value."
 productA: "eufy-familock-e34"
 productB: "aqara-smart-lock-u200"
-publishDate: 2026-09-01
-updatedDate: 2026-09-01
-seoTitle: "eufy FamiLock E34 vs Aqara U200: Which Smart Lock Is Better?"
-seoDescription: "Compare the eufy FamiLock E34 and Aqara U200 for palm-vein access, Apple Home Key, Matter, battery, installation, and value."
+publishDate: "2026-09-01"
+updatedDate: "2026-09-01"
+seoTitle: "eufy FamiLock E34 vs Aqara U200"
+seoDescription: "Compare the eufy E34 and Aqara U200 for unlocking, Matter, Apple Home Key, battery, installation, and value."
 keywords:
-
-* "eufy E34 vs Aqara U200"
-* "eufy FamiLock E34"
-* "Aqara U200"
-* "smart lock comparison"
-* "Apple Home Key smart lock"
-* "Matter smart lock"
+  - "eufy E34 vs Aqara U200"
+  - "eufy FamiLock E34"
+  - "Aqara U200"
+  - "smart lock comparison"
+  - "Apple Home Key smart lock"
+  - "Matter smart lock"
 draft: false
 featured: false
-
 ---
 
 # eufy FamiLock E34 vs Aqara U200: Which Smart Lock Is Better?
